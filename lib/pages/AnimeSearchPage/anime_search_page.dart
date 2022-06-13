@@ -55,7 +55,7 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
 
     return WillPopScope(
       onWillPop: () async {
-        EasyLoading.dismiss();
+        await EasyLoading.dismiss();
         return true;
       },
       child: Scaffold(
