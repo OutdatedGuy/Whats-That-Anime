@@ -36,6 +36,7 @@ class _TopResultState extends State<TopResult> {
   @override
   void dispose() {
     _chewieController.removeListener(updateVideo);
+    _chewieController.videoPlayerController.dispose();
     _chewieController.dispose();
     super.dispose();
   }
