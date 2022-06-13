@@ -1,13 +1,29 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 
+// Firebase Packages
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 // Themes
 import 'themes/app_theme.dart';
 
 // Pages
 import 'pages/HomePage/home_page.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Awaiting all asynchronous tasks simultaneously
+  await Future.wait(
+    <Future<dynamic>>[
+      // Initialize Firebase app
+      Firebase.initializeApp(),
+    ],
+  );
+
+  FirebaseAuth.instance.signInAnonymously();
+
   runApp(const MyApp());
 }
 
