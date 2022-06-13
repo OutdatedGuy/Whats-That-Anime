@@ -5,6 +5,9 @@ import 'dart:convert';
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
 
+// Functions
+import 'log_search_to_firestore.dart';
+
 Future<List<AnimeInfo>> getImageSearch(String imageURL) async {
   Uri searchUri = Uri(
     scheme: 'https',
@@ -23,6 +26,8 @@ Future<List<AnimeInfo>> getImageSearch(String imageURL) async {
 
   final jsonResponse = json.decode(response.body);
   if ((jsonResponse['result'] as List<dynamic>).isEmpty) return [];
+
+  logSearchToFirestore(search: response.body, imageURL: imageURL);
 
   List<AnimeInfo> animeInfoList = [];
   for (var anime in jsonResponse['result']) {
