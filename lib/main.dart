@@ -1,5 +1,6 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Firebase Packages
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +20,14 @@ Future<void> main() async {
     <Future<dynamic>>[
       // Initialize Firebase app
       Firebase.initializeApp(),
+
+      // Seeting oritation to portrait only
+      SystemChrome.setPreferredOrientations(
+        <DeviceOrientation>[
+          DeviceOrientation.portraitUp,
+          DeviceOrientation.portraitDown,
+        ],
+      ),
     ],
   );
 
