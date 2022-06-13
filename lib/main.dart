@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // Themes
 import 'themes/app_theme.dart';
 
+// Pages
+import 'pages/HomePage/home_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,14 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       theme: appTheme(Brightness.light),
       darkTheme: appTheme(Brightness.dark),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: const HomePage(),
     );
   }
 }
