@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// Third Party Packages
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 // Themes
 import 'themes/app_theme.dart';
 
@@ -46,6 +49,7 @@ class MyApp extends StatelessWidget {
       theme: appTheme(Brightness.light),
       darkTheme: appTheme(Brightness.dark),
       home: const HomePage(),
+      builder: EasyLoading.init(),
     );
   }
 }

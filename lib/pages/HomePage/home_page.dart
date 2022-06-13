@@ -5,11 +5,16 @@ import 'package:image_picker/image_picker.dart';
 // Dart Packages
 import 'dart:io';
 
+// Data Models
+import 'package:whats_that_anime/models/my_result.dart';
+
 // Widgets
 import 'widgets/my_search_button.dart';
 
 // Functions
 import 'functions/get_image.dart';
+import 'functions/upload_image_to_firebase.dart';
+import 'functions/show_result_toast.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,6 +30,19 @@ class _HomePageState extends State<HomePage> {
     File? image = await getImage(source: source);
     _image = image ?? _image;
     setState(() {});
+  }
+
+  void _uploadImage() async {
+    if (_image == null) return;
+    MyResult result = await uploadImageToFirebase(_image!);
+
+    if (result.status == ResultStatus.success) {
+      _image = null;
+      setState(() {});
+    } else {
+      if (!mounted) return;
+      showResultToast(context: context, result: result);
+    }
   }
 
   @override
@@ -62,7 +80,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 35),
-          MySearchButton(image: _image, onPressed: () {}),
+          MySearchButton(image: _image, onPressed: _uploadImage),
           const Spacer(),
           ElevatedButton(
             onPressed: () {

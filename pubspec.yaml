@@ -30,12 +30,19 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # To select images from device
   image_picker: ^0.8.5+3
 
   # Firebase Packages
   firebase_core: ^1.17.1
   firebase_auth: ^3.3.19
   firebase_storage: ^10.2.17
+  
+  # To show awesome loading animations
+  flutter_easyloading: ^3.0.5
+
+  # To show awesome toast messages
+  motion_toast: ^2.1.9
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
