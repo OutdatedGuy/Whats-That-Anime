@@ -28,10 +28,14 @@ class _TopResultState extends State<TopResult> {
     showOptions: false,
     autoInitialize: true,
     aspectRatio: 16 / 9,
-  );
+  )..addListener(updateVideo);
+
+  // * Updates the video player when the video is ready
+  void updateVideo() => setState(() {});
 
   @override
   void dispose() {
+    _chewieController.removeListener(updateVideo);
     _chewieController.dispose();
     super.dispose();
   }
