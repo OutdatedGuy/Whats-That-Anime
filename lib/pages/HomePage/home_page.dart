@@ -5,6 +5,9 @@ import 'package:image_picker/image_picker.dart';
 // Dart Packages
 import 'dart:io';
 
+// Pages
+import 'package:whats_that_anime/pages/AnimeSearchPage/anime_search_page.dart';
+
 // Data Models
 import 'package:whats_that_anime/models/my_result.dart';
 
@@ -36,11 +39,19 @@ class _HomePageState extends State<HomePage> {
     if (_image == null) return;
     MyResult result = await uploadImageToFirebase(_image!);
 
+    if (!mounted) return;
+
     if (result.status == ResultStatus.success) {
+      await Navigator.push<void>(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AnimeSearchPage(imageURL: result.url!),
+        ),
+      );
+
       _image = null;
       setState(() {});
     } else {
-      if (!mounted) return;
       showResultToast(context: context, result: result);
     }
   }
