@@ -52,7 +52,8 @@ dependencies:
   better_player: ^0.0.83
 
   # For history page
-  paginate_firestore: ^1.0.3+1
+  # TODO(OutdatedGuy): Update to latest version when issue#130 is fixed
+  paginate_firestore: 1.0.3
 
   # To cache images
   cached_network_image: ^3.2.1
