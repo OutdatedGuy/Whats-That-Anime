@@ -15,4 +15,16 @@ class AnimeInfo {
     required this.imageURL,
     required this.videoURL,
   });
+
+  factory AnimeInfo.fromAPIJson(Map<String, dynamic> data) {
+    return AnimeInfo(
+      englishTitle: data['anilist']['title']['english'] ?? 'N.A.',
+      romajiTitle: data['anilist']['title']['romaji'] ?? 'N.A.',
+      episode: data['episode'] as dynamic ?? 0,
+      timeStart: data['from'] ?? 0,
+      timeEnd: data['to'] ?? 0,
+      imageURL: data['image'] ?? '',
+      videoURL: data['video'] ?? '',
+    );
+  }
 }

@@ -32,21 +32,14 @@ Future<List<AnimeInfo>> getImageSearch({
 
   List<AnimeInfo> animeInfoList = [];
   bool logged = alreadySearched;
-  for (Map anime in jsonResponse['result']) {
+  for (Map<String, dynamic> anime in jsonResponse['result']) {
     if (anime['anilist']['isAdult'] as bool) continue;
     if (!logged) {
       logged = true;
       logSearchToFirestore(topResult: anime, imageURL: imageURL);
     }
-    animeInfoList.add(AnimeInfo(
-      englishTitle: anime['anilist']['title']['english'] ?? 'N.A.',
-      romajiTitle: anime['anilist']['title']['romaji'] ?? 'N.A.',
-      episode: anime['episode'] ?? 0,
-      timeStart: anime['from'] ?? 0,
-      timeEnd: anime['to'] ?? 0,
-      imageURL: anime['image'] ?? '',
-      videoURL: anime['video'] ?? '',
-    ));
+
+    animeInfoList.add(AnimeInfo.fromAPIJson(anime));
   }
   return animeInfoList;
 }
