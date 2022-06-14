@@ -6,6 +6,7 @@ import 'package:better_player/better_player.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
+import 'package:whats_that_anime/models/user_preferences.dart';
 
 // Functions
 import 'package:whats_that_anime/functions/get_formatted_time.dart';
@@ -38,9 +39,11 @@ class _TopResultState extends State<TopResult> {
   @override
   void initState() {
     super.initState();
-    const betterPlayerConfiguration = BetterPlayerConfiguration(
+    final betterPlayerConfiguration = BetterPlayerConfiguration(
       fit: BoxFit.contain,
-      controlsConfiguration: BetterPlayerControlsConfiguration(
+      autoPlay: UserPreferences().shouldAutoplay,
+      looping: UserPreferences().shouldLoop,
+      controlsConfiguration: const BetterPlayerControlsConfiguration(
         enableOverflowMenu: false,
       ),
     );
