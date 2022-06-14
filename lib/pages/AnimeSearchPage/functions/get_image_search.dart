@@ -31,6 +31,7 @@ Future<List<AnimeInfo>> getImageSearch(String imageURL) async {
 
   List<AnimeInfo> animeInfoList = [];
   for (var anime in jsonResponse['result']) {
+    if (anime['anilist']['isAdult'] as bool) continue;
     animeInfoList.add(AnimeInfo(
       englishTitle: anime['anilist']['title']['english'] ?? 'N.A.',
       romajiTitle: anime['anilist']['title']['romaji'] ?? 'N.A.',
