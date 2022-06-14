@@ -44,10 +44,12 @@ class _HistoryPageState extends State<HistoryPage> {
             child: RecordTile(
               anime: animeInfo,
               imageURL: data['imageURL'] as String,
+              recordRef: documentSnapshots[index].reference,
             ),
           );
         },
-        itemsPerPage: 1,
+        onEmpty: const Center(child: Text('No records found')),
+        itemsPerPage: 5,
         // orderBy is compulsory to enable pagination
         query: FirebaseFirestore.instance
             .collection('users')
