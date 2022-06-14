@@ -14,18 +14,8 @@ import 'package:whats_that_anime/models/anime_info.dart';
 // Widgets
 import 'widgets/record_tile.dart';
 
-class HistoryPage extends StatefulWidget {
+class HistoryPage extends StatelessWidget {
   const HistoryPage({Key? key}) : super(key: key);
-
-  @override
-  State<HistoryPage> createState() => _HistoryPageState();
-}
-
-class _HistoryPageState extends State<HistoryPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
