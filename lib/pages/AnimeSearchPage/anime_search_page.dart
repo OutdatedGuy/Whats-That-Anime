@@ -42,7 +42,9 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
   List<AnimeInfo>? _animeInfoList;
 
   void _getResultsFromAPI() async {
-    EasyLoading.show(status: 'Searching...');
+    EasyLoading.show(
+      status: widget.alreadySearched ? 'Refreshing Video Urls' : 'Searching...',
+    );
     final results = await getImageSearch(
       imageURL: widget.imageURL,
       alreadySearched: widget.alreadySearched,
@@ -68,7 +70,7 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
         .map((e) => AnimeInfo.fromAPIJson(e))
         .toList();
     setState(() {});
-    EasyLoading.dismiss();
+    _getResultsFromAPI();
   }
 
   @override
@@ -108,7 +110,10 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                           child: Text('Top Result:', style: text),
                         ),
                         const SizedBox(height: 5),
-                        TopResult(anime: _animeInfoList!.first),
+                        TopResult(
+                          key: ValueKey(_animeInfoList!.first),
+                          anime: _animeInfoList!.first,
+                        ),
                         const SizedBox(height: 20),
                         Align(
                           alignment: Alignment.centerLeft,
@@ -119,7 +124,10 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                         ),
                         const SizedBox(height: 10),
                         for (final animeInfo in _animeInfoList!.skip(1))
-                          ResultTile(animeInfo: animeInfo),
+                          ResultTile(
+                            key: ValueKey(animeInfo),
+                            animeInfo: animeInfo,
+                          ),
                       ],
                     ),
                   ),

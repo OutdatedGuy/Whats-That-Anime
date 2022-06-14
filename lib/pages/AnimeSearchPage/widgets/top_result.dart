@@ -28,6 +28,9 @@ class _TopResultState extends State<TopResult> {
         await Future.delayed(const Duration(milliseconds: 200));
         _betterPlayerController.setControlsVisibility(false);
         break;
+      case BetterPlayerEventType.exception:
+        _betterPlayerController.retryDataSource();
+        break;
       default:
     }
   }
