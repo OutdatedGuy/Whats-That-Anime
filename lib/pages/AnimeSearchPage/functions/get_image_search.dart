@@ -28,18 +28,18 @@ Future<List<AnimeInfo>> getImageSearch({
   if (response.statusCode != 200) return [];
 
   final jsonResponse = json.decode(response.body);
-  if ((jsonResponse['result'] as List<dynamic>).isEmpty) return [];
+  List<dynamic> result = (jsonResponse['result'] as List<dynamic>)
+      .where((e) => !(e['anilist']['isAdult'] as bool))
+      .toList();
+  if (result.isEmpty) return [];
 
-  List<AnimeInfo> animeInfoList = [];
-  bool logged = alreadySearched;
-  for (Map<String, dynamic> anime in jsonResponse['result']) {
-    if (anime['anilist']['isAdult'] as bool) continue;
-    if (!logged) {
-      logged = true;
-      logSearchToFirestore(topResult: anime, imageURL: imageURL);
-    }
-
-    animeInfoList.add(AnimeInfo.fromAPIJson(anime));
+  if (!alreadySearched) {
+    logSearchToFirestore(
+      imageURL: imageURL,
+      result: result,
+      topResult: result.first,
+    );
   }
-  return animeInfoList;
+
+  return result.map((e) => AnimeInfo.fromAPIJson(e)).toList();
 }
