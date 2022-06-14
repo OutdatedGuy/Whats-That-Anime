@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Pages
 import 'package:whats_that_anime/pages/HomePage/home_page.dart';
 import 'package:whats_that_anime/pages/HistoryPage/history_page.dart';
+import 'package:whats_that_anime/pages/SettingsPage/settings_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -23,6 +24,7 @@ class _MainScreenState extends State<MainScreen> {
         children: const <Widget>[
           HomePage(),
           HistoryPage(),
+          SettingsPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -34,6 +36,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'History',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: _currentIndex,
