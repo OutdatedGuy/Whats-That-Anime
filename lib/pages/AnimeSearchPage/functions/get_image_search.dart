@@ -4,6 +4,7 @@ import 'dart:convert';
 
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
+import 'package:whats_that_anime/models/user_preferences.dart';
 
 // Functions
 import 'log_search_to_firestore.dart';
@@ -37,8 +38,9 @@ Future<List<AnimeInfo>> getImageSearch({
   }
   if (response.statusCode != 200) return [];
 
+  bool childFilterEnabled = UserPreferences().childFilterEnabled;
   List<dynamic> result = (jsonResponse['result'] as List<dynamic>)
-      .where((e) => !(e['anilist']['isAdult'] as bool))
+      .where((e) => !childFilterEnabled || !(e['anilist']['isAdult'] as bool))
       .toList();
   if (result.isEmpty) return [];
 
