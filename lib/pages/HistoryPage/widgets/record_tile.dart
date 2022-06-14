@@ -42,7 +42,7 @@ class RecordTile extends StatelessWidget {
               builder: (context) => AnimeSearchPage(
                 imageURL: imageURL,
                 alreadySearched: true,
-                recordRef: recordRef.collection("contents").doc("result"),
+                recordRef: recordRef.collection('contents').doc('result'),
               ),
             ),
           );
