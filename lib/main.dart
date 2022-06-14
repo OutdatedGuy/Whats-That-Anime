@@ -12,8 +12,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 // Themes
 import 'themes/app_theme.dart';
 
-// Pages
-import 'pages/HomePage/home_page.dart';
+// Screens
+import 'screens/MainScreen/main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       theme: appTheme(Brightness.light),
       darkTheme: appTheme(Brightness.dark),
-      home: const HomePage(),
+      home: const MainScreen(),
       builder: EasyLoading.init(),
     );
   }
