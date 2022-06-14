@@ -25,9 +25,18 @@ Future<List<AnimeInfo>> getImageSearch({
   final response = await http.get(searchUri, headers: {
     'Content-Type': 'application/json',
   });
+  final jsonResponse = json.decode(response.body);
+
+  String error = jsonResponse['error'] as String;
+  if (response.statusCode == 402 || error.isNotEmpty) {
+    await Future.delayed(const Duration(seconds: 5));
+    return getImageSearch(
+      imageURL: imageURL,
+      alreadySearched: alreadySearched,
+    );
+  }
   if (response.statusCode != 200) return [];
 
-  final jsonResponse = json.decode(response.body);
   List<dynamic> result = (jsonResponse['result'] as List<dynamic>)
       .where((e) => !(e['anilist']['isAdult'] as bool))
       .toList();
