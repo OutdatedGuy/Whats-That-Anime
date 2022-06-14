@@ -8,7 +8,10 @@ import 'package:whats_that_anime/models/anime_info.dart';
 // Functions
 import 'log_search_to_firestore.dart';
 
-Future<List<AnimeInfo>> getImageSearch(String imageURL) async {
+Future<List<AnimeInfo>> getImageSearch({
+  required String imageURL,
+  required bool alreadySearched,
+}) async {
   Uri searchUri = Uri(
     scheme: 'https',
     host: 'api.trace.moe',
@@ -28,7 +31,7 @@ Future<List<AnimeInfo>> getImageSearch(String imageURL) async {
   if ((jsonResponse['result'] as List<dynamic>).isEmpty) return [];
 
   List<AnimeInfo> animeInfoList = [];
-  bool logged = false;
+  bool logged = alreadySearched;
   for (Map anime in jsonResponse['result']) {
     if (anime['anilist']['isAdult'] as bool) continue;
     if (!logged) {

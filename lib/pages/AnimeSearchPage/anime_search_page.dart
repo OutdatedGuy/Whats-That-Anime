@@ -19,9 +19,11 @@ class AnimeSearchPage extends StatefulWidget {
   const AnimeSearchPage({
     Key? key,
     required this.imageURL,
+    this.alreadySearched = false,
   }) : super(key: key);
 
   final String imageURL;
+  final bool alreadySearched;
 
   @override
   State<AnimeSearchPage> createState() => _AnimeSearchPageState();
@@ -32,8 +34,13 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
 
   void _getResults() async {
     styleLoading();
-    EasyLoading.show(status: 'Searching...');
-    final results = await getImageSearch(widget.imageURL);
+    EasyLoading.show(
+      status: widget.alreadySearched ? 'Loading Record...' : 'Searching...',
+    );
+    final results = await getImageSearch(
+      imageURL: widget.imageURL,
+      alreadySearched: widget.alreadySearched,
+    );
     if (!mounted) return;
     setState(() {
       _animeInfoList = results;
