@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
+      title: 'What\'s That Anime',
       theme: appTheme(Brightness.light),
       darkTheme: appTheme(Brightness.dark),
       home: const MainScreen(),
