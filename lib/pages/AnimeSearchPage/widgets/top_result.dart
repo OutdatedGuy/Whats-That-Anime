@@ -1,9 +1,8 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 // Third Party Packages
-import 'package:chewie/chewie.dart';
+import 'package:better_player/better_player.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
@@ -21,23 +20,40 @@ class TopResult extends StatefulWidget {
 }
 
 class _TopResultState extends State<TopResult> {
-  late final ChewieController _chewieController = ChewieController(
-    videoPlayerController: VideoPlayerController.network(
-      widget.anime.videoURL,
-    ),
-    showOptions: false,
-    autoInitialize: true,
-    aspectRatio: 16 / 9,
-  )..addListener(updateVideo);
+  late BetterPlayerController _betterPlayerController;
 
-  // * Updates the video player when the video is ready
-  void updateVideo() => setState(() {});
+  void _handleControlVisibility(BetterPlayerEvent event) async {
+    switch (event.betterPlayerEventType) {
+      case BetterPlayerEventType.play:
+        await Future.delayed(const Duration(milliseconds: 200));
+        _betterPlayerController.setControlsVisibility(false);
+        break;
+      default:
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    const betterPlayerConfiguration = BetterPlayerConfiguration(
+      fit: BoxFit.contain,
+      controlsConfiguration: BetterPlayerControlsConfiguration(
+        enableOverflowMenu: false,
+      ),
+    );
+    final dataSource = BetterPlayerDataSource(
+      BetterPlayerDataSourceType.network,
+      widget.anime.videoURL,
+    );
+    _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
+    _betterPlayerController.setupDataSource(dataSource);
+    _betterPlayerController.addEventsListener(_handleControlVisibility);
+  }
 
   @override
   void dispose() {
-    _chewieController.removeListener(updateVideo);
-    _chewieController.videoPlayerController.dispose();
-    _chewieController.dispose();
+    _betterPlayerController.removeEventsListener(_handleControlVisibility);
+    _betterPlayerController.dispose();
     super.dispose();
   }
 
@@ -56,7 +72,7 @@ class _TopResultState extends State<TopResult> {
             ),
             child: AspectRatio(
               aspectRatio: 16 / 9,
-              child: Chewie(controller: _chewieController),
+              child: BetterPlayer(controller: _betterPlayerController),
             ),
           ),
           const SizedBox(height: 8),
