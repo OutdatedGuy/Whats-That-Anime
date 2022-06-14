@@ -27,11 +27,14 @@ Future<List<AnimeInfo>> getImageSearch(String imageURL) async {
   final jsonResponse = json.decode(response.body);
   if ((jsonResponse['result'] as List<dynamic>).isEmpty) return [];
 
-  logSearchToFirestore(search: response.body, imageURL: imageURL);
-
   List<AnimeInfo> animeInfoList = [];
-  for (var anime in jsonResponse['result']) {
+  bool logged = false;
+  for (Map anime in jsonResponse['result']) {
     if (anime['anilist']['isAdult'] as bool) continue;
+    if (!logged) {
+      logged = true;
+      logSearchToFirestore(topResult: anime, imageURL: imageURL);
+    }
     animeInfoList.add(AnimeInfo(
       englishTitle: anime['anilist']['title']['english'] ?? 'N.A.',
       romajiTitle: anime['anilist']['title']['romaji'] ?? 'N.A.',
