@@ -118,6 +118,7 @@ class RecordTile extends StatelessWidget {
                         onPressed: () {
                           recordRef.delete();
                         },
+                        color: Colors.red,
                         tooltip: 'Delete Record',
                       ),
                     ),
