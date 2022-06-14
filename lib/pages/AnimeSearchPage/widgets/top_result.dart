@@ -8,7 +8,7 @@ import 'package:better_player/better_player.dart';
 import 'package:whats_that_anime/models/anime_info.dart';
 
 // Functions
-import '../functions/get_formatted_time.dart';
+import 'package:whats_that_anime/functions/get_formatted_time.dart';
 
 class TopResult extends StatefulWidget {
   const TopResult({Key? key, required this.anime}) : super(key: key);
