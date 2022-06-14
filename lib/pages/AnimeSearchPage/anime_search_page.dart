@@ -1,6 +1,9 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 
+// Firebase Packages
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 // Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -20,10 +23,16 @@ class AnimeSearchPage extends StatefulWidget {
     Key? key,
     required this.imageURL,
     this.alreadySearched = false,
-  }) : super(key: key);
+    this.recordRef,
+  })  : assert(
+          !alreadySearched || recordRef != null,
+          'recordRef must not be null if alreadySearched is true',
+        ),
+        super(key: key);
 
   final String imageURL;
   final bool alreadySearched;
+  final DocumentReference? recordRef;
 
   @override
   State<AnimeSearchPage> createState() => _AnimeSearchPageState();
@@ -32,11 +41,8 @@ class AnimeSearchPage extends StatefulWidget {
 class _AnimeSearchPageState extends State<AnimeSearchPage> {
   List<AnimeInfo>? _animeInfoList;
 
-  void _getResults() async {
-    styleLoading();
-    EasyLoading.show(
-      status: widget.alreadySearched ? 'Loading Record...' : 'Searching...',
-    );
+  void _getResultsFromAPI() async {
+    EasyLoading.show(status: 'Searching...');
     final results = await getImageSearch(
       imageURL: widget.imageURL,
       alreadySearched: widget.alreadySearched,
@@ -48,10 +54,28 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
     EasyLoading.dismiss();
   }
 
+  void _getResultsFromFirestore() async {
+    EasyLoading.show(status: 'Loading Record...');
+    if (widget.recordRef == null) {
+      setState(() {
+        _animeInfoList = [];
+      });
+      return;
+    }
+    final record = await widget.recordRef!.get();
+    if (!mounted) return;
+    _animeInfoList = (record['result'] as List)
+        .map((e) => AnimeInfo.fromAPIJson(e))
+        .toList();
+    setState(() {});
+    EasyLoading.dismiss();
+  }
+
   @override
   void initState() {
     super.initState();
-    _getResults();
+    styleLoading();
+    widget.alreadySearched ? _getResultsFromFirestore() : _getResultsFromAPI();
   }
 
   @override
