@@ -1,0 +1,14 @@
+# For App Launcher icon
+flutter_icons:
+  android: true
+  ios: false
+  web: false
+  windows: false
+  macos: false
+  linux: false
+
+  image_path: "assets/icons/launcher_icon_border.png"
+
+  adaptive_icon_background: "#FF673AB7"
+  adaptive_icon_foreground: "assets/icons/logo.png"
+  adaptive_icon_round: "assets/icons/launcher_icon_round.png"
