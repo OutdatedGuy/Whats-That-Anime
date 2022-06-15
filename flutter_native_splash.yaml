@@ -1,0 +1,13 @@
+# For App Launch splash screen
+flutter_native_splash:
+  color: "#673AB7"
+  image: assets/icons/splash_screen_logo.png
+
+  color_dark: "#673AB7"
+  image_dark: assets/icons/splash_screen_logo.png
+
+  android: true
+  ios: false
+  web: false
+
+  fullscreen: true
