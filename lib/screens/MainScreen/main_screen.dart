@@ -1,6 +1,9 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 
+// Firebase Packages
+import 'package:firebase_auth/firebase_auth.dart';
+
 // Pages
 import 'package:whats_that_anime/pages/HomePage/home_page.dart';
 import 'package:whats_that_anime/pages/HistoryPage/history_page.dart';
@@ -18,13 +21,15 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
-        children: const <Widget>[
-          HomePage(),
-          HistoryPage(),
-          SettingsPage(),
+        children: <Widget>[
+          const HomePage(),
+          HistoryPage(key: Key('history: $uid')),
+          const SettingsPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

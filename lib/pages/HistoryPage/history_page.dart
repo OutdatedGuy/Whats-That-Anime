@@ -19,38 +19,42 @@ class HistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? uid = FirebaseAuth.instance.currentUser?.uid;
+
     return Scaffold(
       appBar: AppBar(title: const Text('Search History')),
-      body: PaginateFirestore(
-        //item builder type is compulsory.
-        itemBuilder: (context, documentSnapshots, index) {
-          final data = documentSnapshots[index].data() as Map?;
-          if (data == null) return Container();
-          AnimeInfo animeInfo = AnimeInfo.fromAPIJson(
-            data['topResult'] as Map<String, dynamic>,
-          );
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RecordTile(
-              anime: animeInfo,
-              imageURL: data['imageURL'] as String,
-              recordRef: documentSnapshots[index].reference,
+      body: uid == null
+          ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
+          : PaginateFirestore(
+              //item builder type is compulsory.
+              itemBuilder: (context, documentSnapshots, index) {
+                final data = documentSnapshots[index].data() as Map?;
+                if (data == null) return Container();
+                AnimeInfo animeInfo = AnimeInfo.fromAPIJson(
+                  data['topResult'] as Map<String, dynamic>,
+                );
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RecordTile(
+                    anime: animeInfo,
+                    imageURL: data['imageURL'] as String,
+                    recordRef: documentSnapshots[index].reference,
+                  ),
+                );
+              },
+              onEmpty: const Center(child: Text('No records found')),
+              itemsPerPage: 5,
+              // orderBy is compulsory to enable pagination
+              query: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser?.uid)
+                  .collection('animeSearches')
+                  .orderBy('timestamp', descending: true),
+              //Change types accordingly
+              itemBuilderType: PaginateBuilderType.listView,
+              // to fetch real-time data
+              isLive: true,
             ),
-          );
-        },
-        onEmpty: const Center(child: Text('No records found')),
-        itemsPerPage: 5,
-        // orderBy is compulsory to enable pagination
-        query: FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser!.uid)
-            .collection('animeSearches')
-            .orderBy('timestamp', descending: true),
-        //Change types accordingly
-        itemBuilderType: PaginateBuilderType.listView,
-        // to fetch real-time data
-        isLive: true,
-      ),
     );
   }
 }
