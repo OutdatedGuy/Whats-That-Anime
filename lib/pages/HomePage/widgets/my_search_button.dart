@@ -1,19 +1,17 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
-
-// Dart Packages
-import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class MySearchButton extends StatelessWidget {
   const MySearchButton({
     Key? key,
-    required File? image,
+    required XFile? image,
     required VoidCallback onPressed,
   })  : _image = image,
         _onPressed = onPressed,
         super(key: key);
 
-  final File? _image;
+  final XFile? _image;
   final VoidCallback _onPressed;
 
   @override

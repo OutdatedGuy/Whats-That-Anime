@@ -1,5 +1,5 @@
-// Dart Packages
-import 'dart:io';
+// Flutter Packages
+import 'package:image_picker/image_picker.dart';
 
 // Firebase Packages
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,7 +15,7 @@ import 'package:whats_that_anime/models/my_result.dart';
 import 'style_loading.dart';
 
 /// Adding image to dailyImage directory for this user
-Future<MyResult> uploadImageToFirebase(File file) async {
+Future<MyResult> uploadImageToFirebase(XFile file) async {
   styleLoading();
   EasyLoading.show(status: 'Loading Image...');
 
@@ -25,7 +25,7 @@ Future<MyResult> uploadImageToFirebase(File file) async {
 
     final Reference storageRef = FirebaseStorage.instance.ref('users');
 
-    if (file.lengthSync() > 1024 * 1024) {
+    if (await file.length() > 1024 * 1024) {
       // show warning if image is too large
       EasyLoading.dismiss();
       return MyResult(
@@ -39,11 +39,14 @@ Future<MyResult> uploadImageToFirebase(File file) async {
     String imgName = DateTime.now().toString().split('.')[0];
     imgName = imgName.replaceAll(RegExp(r' '), 'T');
     final Reference userRef = storageRef.child(
-      '${user.uid}/animeImages/$imgName.${file.path.split('.').last}',
+      '${user.uid}/animeImages/$imgName.${file.mimeType?.split('/').last ?? 'jpg'}',
     );
 
     // Start upload and show progress
-    final UploadTask uploadTask = userRef.putFile(file);
+    final UploadTask uploadTask = userRef.putData(
+      await file.readAsBytes(),
+      SettableMetadata(contentType: file.mimeType),
+    );
     uploadTask.snapshotEvents.listen((TaskSnapshot event) async {
       if (event.state == TaskState.running) {
         final double progress = event.bytesTransferred / event.totalBytes;
