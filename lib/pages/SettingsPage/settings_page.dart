@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Pages
+import 'package:whats_that_anime/pages/MyLincensePage/my_lincense_page.dart';
+
 // Data Models
 import 'package:whats_that_anime/models/user_preferences.dart';
 
@@ -140,6 +143,21 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 );
                 launchUrl(launchUri, mode: LaunchMode.externalApplication);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline),
+              title: const Text('App Info & Licenses'),
+              trailing: const Icon(Icons.arrow_forward),
+              textColor: Theme.of(context).colorScheme.primary,
+              iconColor: Theme.of(context).colorScheme.primary,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const MyLincensePage(),
+                  ),
+                );
               },
             ),
           ],
