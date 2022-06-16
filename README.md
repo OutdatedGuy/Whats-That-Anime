@@ -64,3 +64,11 @@ This package currently is only tested on android platform.
 5. Set **Firebase rules** for all paths to `true`. (temporarily, you can later add explicit permissions)
 6. Then go to _Add App_ and select **Flutter** option and follow those instructions.
 7. Run App
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0.
+
+For more information, read the [LICENSE](LICENSE) file.
+
+![](https://img.shields.io/badge/License-AGPL-blue.svg?style=flat-square)
