@@ -110,9 +110,13 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                           child: Text('Top Result:', style: text),
                         ),
                         const SizedBox(height: 5),
-                        TopResult(
-                          key: ValueKey(_animeInfoList!.first),
-                          anime: _animeInfoList!.first,
+                        Hero(
+                          tag: widget.recordRef?.parent.parent ??
+                              widget.imageURL,
+                          child: TopResult(
+                            key: ValueKey(_animeInfoList!.first),
+                            anime: _animeInfoList!.first,
+                          ),
                         ),
                         const SizedBox(height: 20),
                         Align(

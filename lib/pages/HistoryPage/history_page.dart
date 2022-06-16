@@ -35,10 +35,13 @@ class HistoryPage extends StatelessWidget {
                 );
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: RecordTile(
-                    anime: animeInfo,
-                    imageURL: data['imageURL'] as String,
-                    recordRef: documentSnapshots[index].reference,
+                  child: Hero(
+                    tag: documentSnapshots[index].reference,
+                    child: RecordTile(
+                      anime: animeInfo,
+                      imageURL: data['imageURL'] as String,
+                      recordRef: documentSnapshots[index].reference,
+                    ),
                   ),
                 );
               },
