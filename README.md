@@ -7,19 +7,19 @@
 ## Light Mode
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74326345/174185127-b7253d51-e1c3-4009-829a-bb6a660e96bf.jpg" width="22%" height="440px"></img>
-  <img src="https://user-images.githubusercontent.com/74326345/174185178-35409090-3dca-4e0b-a8d6-cef221586893.jpg" width="22%" height="440px"></img>
-  <img src="https://user-images.githubusercontent.com/74326345/174185212-ee7a5d82-f1c6-4449-9c42-59364f402400.jpg" width="22%" height="440px"></img>
-  <img src="https://user-images.githubusercontent.com/74326345/174185263-c81a8514-55c4-42f7-b7f1-c0b565f65d6d.jpg" width="22%" height="440px"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191072-352c33b8-a0d4-4fe9-8248-b16ad11dd2d5.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191073-33c1dc22-8917-4b2a-8f97-2ffcfe238cca.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191075-442c1527-3a08-4457-b24f-2fa79c4175ec.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191077-cd1945b1-3eb7-4449-8d03-77c6d9096bbc.jpg" width="22%"></img>
 </p>
 
 ## Dark Mode
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/74326345/174185371-a651b2a9-6d7c-47d1-8639-c9e26642b835.jpg" width="22%"></img>
-  <img src="https://user-images.githubusercontent.com/74326345/174185407-b5af106d-613b-42be-8b29-dc80ece7ab7c.jpg" width="22%"></img>
-  <img src="https://user-images.githubusercontent.com/74326345/174185436-a41617d1-4ee0-4930-bd93-8edd8394e7b1.jpg" width="22%"></img>
-  <img src="https://user-images.githubusercontent.com/74326345/174185466-d37150cd-d900-450e-8066-f236b0b12785.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191079-4db45d72-e367-44ae-ad56-a9465c945d2f.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191081-fa34f9e3-7e26-4942-87f5-a8366ac9c0e4.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191084-b75732cf-da3c-4c66-9d88-b7052f5aa731.jpg" width="22%"></img>
+  <img src="https://user-images.githubusercontent.com/74326345/174191068-ba6d5502-a021-4521-b152-cd4eccb7ba36.jpg" width="22%"></img>
 </p>
 
 # What's That Anime
