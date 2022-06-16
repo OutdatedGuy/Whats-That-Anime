@@ -8,6 +8,7 @@ import 'dart:async';
 // Firebase Packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_options.dart';
 
 // Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -29,7 +30,7 @@ Future<void> main() async {
   await Future.wait(
     <Future<dynamic>>[
       // Initialize Firebase app
-      Firebase.initializeApp(),
+      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
 
       // Seeting oritation to portrait only
       SystemChrome.setPreferredOrientations(
