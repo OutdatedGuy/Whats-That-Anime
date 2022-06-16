@@ -13,15 +13,19 @@ import 'firebase_options.dart';
 // Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
+// Screens
+import 'screens/MainScreen/main_screen.dart';
+
+// Pages
+import 'pages/OfflinePage/offline_page.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/user_preferences.dart';
 
 // Themes
 import 'themes/app_theme.dart';
-
-// Screens
-import 'screens/MainScreen/main_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,14 +61,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late StreamSubscription<User?> _userSubscription;
+  late StreamSubscription<InternetConnectionStatus> connectionSub;
+  VoidCallback? disposeListener;
+  bool isConnected = true;
 
   @override
   void initState() {
     super.initState();
     _userSubscription = FirebaseAuth.instance.userChanges().listen(
       (User? user) async {
+        disposeListener?.call();
+
         await GetStorage.init(user?.uid ?? 'GetStorage');
-        GetStorage(
+        disposeListener = GetStorage(
           user?.uid ?? 'GetStorage',
         ).listenKey('theme', (value) => setState(() {}));
 
@@ -72,11 +81,24 @@ class _MyAppState extends State<MyApp> {
       },
     );
     FirebaseAuth.instance.signInAnonymously();
+
+    connectionSub = InternetConnectionChecker().onStatusChange.listen((status) {
+      bool inNowConnected = status == InternetConnectionStatus.connected;
+
+      if (inNowConnected == isConnected) return;
+
+      isConnected = inNowConnected;
+      FirebaseAuth.instance.currentUser?.uid == null
+          ? FirebaseAuth.instance.signInAnonymously()
+          : setState(() {});
+    });
   }
 
   @override
   void dispose() {
     _userSubscription.cancel();
+    connectionSub.cancel();
+    disposeListener?.call();
     super.dispose();
   }
 
@@ -87,7 +109,13 @@ class _MyAppState extends State<MyApp> {
       theme: appTheme(Brightness.light),
       darkTheme: appTheme(Brightness.dark),
       themeMode: UserPreferences().theme,
-      home: const MainScreen(),
+      home: IndexedStack(
+        index: isConnected ? 0 : 1,
+        children: const [
+          MainScreen(),
+          OfflinePage(),
+        ],
+      ),
       builder: EasyLoading.init(),
     );
   }
