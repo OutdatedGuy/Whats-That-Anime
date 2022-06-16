@@ -14,15 +14,27 @@ class DarkModeTile extends StatefulWidget {
 class _DarkModeTileState extends State<DarkModeTile> {
   @override
   Widget build(BuildContext context) {
+    final bool isChecked = UserPreferences().isDarkMode;
+
     return SwitchListTile(
-      value: UserPreferences().isDarkMode,
+      value: isChecked,
       onChanged: (bool value) {
         UserPreferences().theme = value ? ThemeMode.dark : ThemeMode.light;
         setState(() {});
       },
       title: const Text('Dark Mode'),
-      secondary: Icon(
-        UserPreferences().isDarkMode ? Icons.dark_mode : Icons.light_mode,
+      secondary: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return ScaleTransition(
+            scale: animation,
+            child: RotationTransition(turns: animation, child: child),
+          );
+        },
+        child: Icon(
+          isChecked ? Icons.dark_mode : Icons.light_mode,
+          key: ValueKey('theme-switch: $isChecked'),
+        ),
       ),
     );
   }

@@ -16,14 +16,34 @@ class SearchHistoryTile extends StatefulWidget {
 class _SearchHistoryTileState extends State<SearchHistoryTile> {
   @override
   Widget build(BuildContext context) {
+    bool isChecked = UserPreferences().searchHistoryEnabled;
+
     return SwitchListTile(
-      value: UserPreferences().searchHistoryEnabled,
+      value: isChecked,
       onChanged: (bool value) {
         UserPreferences().searchHistoryEnabled = value;
         setState(() {});
       },
       title: const Text('Search History'),
-      secondary: const Icon(Icons.manage_history),
+      secondary: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1, 0),
+                end: const Offset(0, 0),
+              ).animate(animation),
+              child: child,
+            ),
+          );
+        },
+        child: Icon(
+          isChecked ? Icons.history : Icons.history_toggle_off,
+          key: ValueKey('searchhistory-switch: $isChecked'),
+        ),
+      ),
     );
   }
 }

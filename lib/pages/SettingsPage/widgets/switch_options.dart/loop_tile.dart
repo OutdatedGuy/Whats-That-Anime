@@ -16,14 +16,34 @@ class LoopTile extends StatefulWidget {
 class _LoopTileState extends State<LoopTile> {
   @override
   Widget build(BuildContext context) {
+    bool isChecked = UserPreferences().shouldLoop;
+
     return SwitchListTile(
-      value: UserPreferences().shouldLoop,
+      value: isChecked,
       onChanged: (bool value) {
         UserPreferences().shouldLoop = value;
         setState(() {});
       },
       title: const Text('Loop Videos'),
-      secondary: const Icon(Icons.loop),
+      secondary: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return RotationTransition(
+            turns: animation,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1, 0),
+                end: const Offset(0, 0),
+              ).animate(animation),
+              child: child,
+            ),
+          );
+        },
+        child: Icon(
+          isChecked ? Icons.loop : Icons.looks_one_outlined,
+          key: ValueKey('loop-switch: $isChecked'),
+        ),
+      ),
     );
   }
 }

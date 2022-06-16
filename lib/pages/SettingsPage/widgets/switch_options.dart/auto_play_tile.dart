@@ -16,17 +16,21 @@ class AutoPlayTile extends StatefulWidget {
 class _AutoPlayTileState extends State<AutoPlayTile> {
   @override
   Widget build(BuildContext context) {
+    bool isChecked = UserPreferences().shouldAutoplay;
+
     return SwitchListTile(
-      value: UserPreferences().shouldAutoplay,
+      value: isChecked,
       onChanged: (bool value) {
         UserPreferences().shouldAutoplay = value;
         setState(() {});
       },
       title: const Text('Autoplay Videos'),
-      secondary: Icon(
-        UserPreferences().shouldAutoplay
-            ? Icons.play_arrow
-            : Icons.play_disabled,
+      secondary: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: Icon(
+          isChecked ? Icons.play_arrow : Icons.play_disabled,
+          key: ValueKey('autoplay-switch: $isChecked'),
+        ),
       ),
     );
   }
