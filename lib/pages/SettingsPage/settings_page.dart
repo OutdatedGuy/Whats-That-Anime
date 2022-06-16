@@ -79,8 +79,13 @@ class _SettingsPageState extends State<SettingsPage> {
                     styleLoading();
                     EasyLoading.show(status: 'Clearing search history...');
 
-                    await UserPreferences.clearSearchHistory();
-                    EasyLoading.dismiss();
+                    try {
+                      await UserPreferences.clearSearchHistory();
+                    } on Exception {
+                      EasyLoading.showError('Error clearing search history.');
+                    } finally {
+                      EasyLoading.dismiss();
+                    }
                   }
                 });
               },

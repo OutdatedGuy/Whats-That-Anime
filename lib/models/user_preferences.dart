@@ -95,6 +95,7 @@ class UserPreferences {
     for (var doc in snapshots.docs) {
       batch.delete(doc.reference);
     }
-    await batch.commit();
+
+    return batch.commit();
   }
 }
