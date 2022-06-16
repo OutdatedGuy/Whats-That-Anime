@@ -1,4 +1,4 @@
-package rocks.outdatedguy.whats_that_anime
+package rocks.outdatedguy.whatsthatanime
 
 import io.flutter.embedding.android.FlutterActivity
 

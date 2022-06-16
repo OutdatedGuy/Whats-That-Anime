@@ -76,7 +76,7 @@ dev_dependencies:
     sdk: flutter
 
   # To change apps package name
-  # flutter pub run change_app_package_name:main rocks.outdatedguy.whats_that_anime
+  # flutter pub run change_app_package_name:main rocks.outdatedguy.whatsthatanime
   change_app_package_name: ^1.1.0
 
   # To change apps icon

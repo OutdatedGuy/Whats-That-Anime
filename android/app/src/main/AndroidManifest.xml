@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="rocks.outdatedguy.whats_that_anime">
+    package="rocks.outdatedguy.whatsthatanime">
    <application
         android:label="What's That Anime"
         android:name="${applicationName}"
