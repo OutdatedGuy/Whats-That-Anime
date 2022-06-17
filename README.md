@@ -49,6 +49,10 @@ This package currently is only tested on android platform.
 - Add web platform support
 - Add ios platform suppport
 
+## Contributing
+
+Contributions are welcomed, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.
+
 ## How to Run
 
 1. Clone the repo
