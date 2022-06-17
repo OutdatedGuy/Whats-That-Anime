@@ -8,7 +8,8 @@ This project adheres to a [Code of Conduct][code-of-conduct]. By participating, 
 
 ## Submitting a Pull Request
 
-1. Fork it.
+1. Fork this repo.
+1. Follow steps to [clone and run project](README.md#how-to-run).
 1. Create a branch (`git checkout -b my_branch`).
 1. Commit your changes (`git commit -am "Added new feature"`).
 1. Push to the branch (`git push origin my_branch`).
