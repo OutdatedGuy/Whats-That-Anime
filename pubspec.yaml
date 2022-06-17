@@ -70,6 +70,10 @@ dependencies:
   # To get status of internet connectivity
   internet_connection_checker: ^0.0.1+4
 
+  # To create launch splash screen
+  # flutter pub run flutter_native_splash:create
+  flutter_native_splash: ^2.2.3+1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -85,10 +89,6 @@ dev_dependencies:
   # To change apps icon
   # flutter pub run icons_launcher:create
   icons_launcher: ^1.2.1
-
-  # To create launch splash screen
-  # flutter pub run flutter_native_splash:create
-  flutter_native_splash: ^2.2.3+1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
