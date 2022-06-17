@@ -67,6 +67,8 @@ This package currently is only tested on android platform.
 
 ## License
 
+[![GNU AGPLv3 Image](https://www.gnu.org/graphics/agplv3-155x51.png)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+
 This project is licensed under the GNU Affero General Public License v3.0.
 
 For more information, read the [LICENSE](LICENSE) file.
