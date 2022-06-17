@@ -7,7 +7,7 @@ import 'dart:io';
 Future<File?> getImage({required ImageSource source}) async {
   final XFile? image = await ImagePicker().pickImage(
     source: source,
-    imageQuality: 75,
+    imageQuality: 40,
   );
 
   return image == null ? null : File(image.path);
