@@ -17,6 +17,7 @@ import 'widgets/result_tile.dart';
 // Functions
 import 'functions/get_image_search.dart';
 import 'functions/style_loading.dart';
+import 'functions/log_search_to_firestore.dart';
 
 class AnimeSearchPage extends StatefulWidget {
   const AnimeSearchPage({
@@ -45,15 +46,28 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
     EasyLoading.show(
       status: widget.alreadySearched ? 'Refreshing Video Urls' : 'Searching...',
     );
-    final results = await getImageSearch(
-      imageURL: widget.imageURL,
-      alreadySearched: widget.alreadySearched,
-    );
-    if (!mounted) return;
-    setState(() {
-      _animeInfoList = results;
-    });
-    EasyLoading.dismiss();
+    try {
+      final results = await getImageSearch(imageURL: widget.imageURL);
+
+      if (!mounted) return;
+
+      if (!widget.alreadySearched) {
+        logSearchToFirestore(
+          imageURL: widget.imageURL,
+          result: results,
+          topResult: results.first.toMap(),
+        );
+      }
+      setState(() {
+        _animeInfoList = results;
+      });
+    } catch (e) {
+      await EasyLoading.showError('Something went wrong');
+      if (!mounted) return;
+      Navigator.pop(context);
+    } finally {
+      EasyLoading.dismiss();
+    }
   }
 
   void _getResultsFromFirestore() async {
@@ -66,10 +80,12 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
     }
     final record = await widget.recordRef!.get();
     if (!mounted) return;
-    _animeInfoList = (record['result'] as List)
-        .map((e) => AnimeInfo.fromAPIJson(e))
-        .toList();
-    setState(() {});
+
+    if (record.exists) {
+      _animeInfoList =
+          (record['result'] as List).map((e) => AnimeInfo.fromMap(e)).toList();
+      setState(() {});
+    }
     _getResultsFromAPI();
   }
 

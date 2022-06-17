@@ -4,11 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/user_preferences.dart';
+import 'package:whats_that_anime/models/anime_info.dart';
 
 void logSearchToFirestore({
   required String imageURL,
-  required List result,
-  required Map topResult,
+  required List<AnimeInfo> result,
+  required Map<String, dynamic> topResult,
 }) {
   if (!UserPreferences().searchHistoryEnabled) return;
 
@@ -24,7 +25,7 @@ void logSearchToFirestore({
     'timestamp': FieldValue.serverTimestamp(),
   }).then((value) {
     value.collection('contents').doc('result').set({
-      'result': result,
+      'result': result.map((e) => e.toMap()).toList(),
       'imageURL': imageURL,
       'uid': userId,
       'timestamp': FieldValue.serverTimestamp(),

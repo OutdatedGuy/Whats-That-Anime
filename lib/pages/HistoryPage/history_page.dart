@@ -30,7 +30,7 @@ class HistoryPage extends StatelessWidget {
               itemBuilder: (context, documentSnapshots, index) {
                 final data = documentSnapshots[index].data() as Map?;
                 if (data == null) return Container();
-                AnimeInfo animeInfo = AnimeInfo.fromAPIJson(
+                AnimeInfo animeInfo = AnimeInfo.fromMap(
                   data['topResult'] as Map<String, dynamic>,
                 );
                 return Padding(
