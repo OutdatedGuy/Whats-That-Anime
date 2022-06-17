@@ -27,4 +27,28 @@ class AnimeInfo {
       videoURL: data['video'] ?? '',
     );
   }
+
+  factory AnimeInfo.fromMap(Map<String, dynamic> data) {
+    return AnimeInfo(
+      englishTitle: data['englishTitle'] ?? 'N.A.',
+      romajiTitle: data['romajiTitle'] ?? 'N.A.',
+      episode: data['episode'] as dynamic ?? 0,
+      timeStart: data['timeStart'] ?? 0,
+      timeEnd: data['timeEnd'] ?? 0,
+      imageURL: data['imageURL'] ?? '',
+      videoURL: data['videoURL'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'englishTitle': englishTitle,
+      'romajiTitle': romajiTitle,
+      'episode': episode,
+      'timeStart': timeStart,
+      'timeEnd': timeEnd,
+      'imageURL': imageURL,
+      'videoURL': videoURL,
+    };
+  }
 }
