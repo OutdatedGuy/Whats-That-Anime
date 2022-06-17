@@ -14,6 +14,7 @@ import 'firebase_options.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Screens
 import 'screens/MainScreen/main_screen.dart';
@@ -28,7 +29,8 @@ import 'package:whats_that_anime/models/user_preferences.dart';
 import 'themes/app_theme.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   // Awaiting all asynchronous tasks simultaneously
   await Future.wait(
@@ -92,6 +94,8 @@ class _MyAppState extends State<MyApp> {
           ? FirebaseAuth.instance.signInAnonymously()
           : setState(() {});
     });
+
+    Timer(const Duration(milliseconds: 690), FlutterNativeSplash.remove);
   }
 
   @override
