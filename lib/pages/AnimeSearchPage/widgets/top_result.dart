@@ -33,6 +33,7 @@ class _TopResultState extends State<TopResult> {
       looping: UserPreferences().shouldLoop,
       showOptions: false,
       allowFullScreen: !kIsWeb,
+      hideControlsTimer: const Duration(seconds: 1),
     );
     setState(() {});
   }
