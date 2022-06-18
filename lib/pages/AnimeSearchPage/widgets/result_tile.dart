@@ -31,10 +31,12 @@ class ResultTile extends StatelessWidget {
             Navigator.push<void>(
               context,
               MaterialPageRoute(
-                builder: (context) => Hero(
-                  tag: animeInfo,
-                  child: SafeArea(
-                    child: TopResult(anime: animeInfo),
+                builder: (context) => Align(
+                  child: Hero(
+                    tag: animeInfo,
+                    child: SafeArea(
+                      child: TopResult(anime: animeInfo),
+                    ),
                   ),
                 ),
               ),

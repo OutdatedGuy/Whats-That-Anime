@@ -60,54 +60,57 @@ class _TopResultState extends State<TopResult> {
     String from = getFormattedDuration(widget.anime.timeStart.truncate());
     String to = getFormattedDuration(widget.anime.timeEnd.truncate());
 
-    return Card(
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 600),
+      child: Card(
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: _chewieController == null
+                    ? null
+                    : Chewie(controller: _chewieController!),
+              ),
             ),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: _chewieController == null
-                  ? null
-                  : Chewie(controller: _chewieController!),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(),
+                  Text(
+                    'English Title: ${widget.anime.englishTitle}',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Romaji Title: ${widget.anime.romajiTitle}',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Episode: ${widget.anime.episode}',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Timestamp: $from - $to',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(),
-                Text(
-                  'English Title: ${widget.anime.englishTitle}',
-                  style: Theme.of(context).textTheme.titleSmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Romaji Title: ${widget.anime.romajiTitle}',
-                  style: Theme.of(context).textTheme.titleSmall,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Episode: ${widget.anime.episode}',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Timestamp: $from - $to',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 5),
-        ],
+            const SizedBox(height: 5),
+          ],
+        ),
       ),
     );
   }

@@ -126,15 +126,12 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                         ),
                         const SizedBox(height: 5),
                         Align(
-                          child: Container(
-                            constraints: const BoxConstraints(maxWidth: 500),
-                            child: Hero(
-                              tag: widget.recordRef?.parent.parent ??
-                                  widget.imageURL,
-                              child: TopResult(
-                                key: ValueKey(_animeInfoList!.first),
-                                anime: _animeInfoList!.first,
-                              ),
+                          child: Hero(
+                            tag: widget.recordRef?.parent.parent ??
+                                widget.imageURL,
+                            child: TopResult(
+                              key: ValueKey(_animeInfoList!.first),
+                              anime: _animeInfoList!.first,
                             ),
                           ),
                         ),
