@@ -31,7 +31,7 @@ Future<MyResult> uploadImageToFirebase(XFile file) async {
       return MyResult(
         status: ResultStatus.warning,
         code: 'Image too Large',
-        message: 'Image size exceeds 3MB limit. Please select a smaller image.',
+        message: 'Image size exceeds 1MB limit. Please select a smaller image.',
       );
     }
 
