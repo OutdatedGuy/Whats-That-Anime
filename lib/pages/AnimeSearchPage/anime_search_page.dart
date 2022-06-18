@@ -122,16 +122,20 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                     child: ListView(
                       children: [
                         Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text('Top Result:', style: text),
+                          child: Text('Top Result', style: text),
                         ),
                         const SizedBox(height: 5),
-                        Hero(
-                          tag: widget.recordRef?.parent.parent ??
-                              widget.imageURL,
-                          child: TopResult(
-                            key: ValueKey(_animeInfoList!.first),
-                            anime: _animeInfoList!.first,
+                        Align(
+                          child: Container(
+                            constraints: const BoxConstraints(maxWidth: 500),
+                            child: Hero(
+                              tag: widget.recordRef?.parent.parent ??
+                                  widget.imageURL,
+                              child: TopResult(
+                                key: ValueKey(_animeInfoList!.first),
+                                anime: _animeInfoList!.first,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),
