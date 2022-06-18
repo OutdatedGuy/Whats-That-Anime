@@ -1,6 +1,7 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // Dart Packages
 import 'dart:async';
@@ -64,7 +65,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late StreamSubscription<User?> _userSubscription;
-  late StreamSubscription<InternetConnectionStatus> connectionSub;
+  StreamSubscription<InternetConnectionStatus>? connectionSub;
   VoidCallback? disposeListener;
   bool isConnected = true;
 
@@ -85,16 +86,20 @@ class _MyAppState extends State<MyApp> {
     );
     FirebaseAuth.instance.signInAnonymously();
 
-    connectionSub = InternetConnectionChecker().onStatusChange.listen((status) {
-      bool inNowConnected = status == InternetConnectionStatus.connected;
+    // ! Try for a way to check for internet connection in the future for web
+    // TODO(OutdatedGuy): Create a web only plugin for this
+    connectionSub = kIsWeb
+        ? null
+        : InternetConnectionChecker().onStatusChange.listen((status) {
+            bool inNowConnected = status == InternetConnectionStatus.connected;
 
-      if (inNowConnected == isConnected) return;
+            if (inNowConnected == isConnected) return;
 
-      isConnected = inNowConnected;
-      FirebaseAuth.instance.currentUser?.uid == null
-          ? FirebaseAuth.instance.signInAnonymously()
-          : setState(() {});
-    });
+            isConnected = inNowConnected;
+            FirebaseAuth.instance.currentUser?.uid == null
+                ? FirebaseAuth.instance.signInAnonymously()
+                : setState(() {});
+          });
 
     Timer(const Duration(milliseconds: 420), FlutterNativeSplash.remove);
   }
@@ -102,7 +107,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     _userSubscription.cancel();
-    connectionSub.cancel();
+    connectionSub?.cancel();
     disposeListener?.call();
     super.dispose();
   }
