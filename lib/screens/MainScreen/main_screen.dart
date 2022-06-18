@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
         children: <Widget>[
           const HomePage(),
           HistoryPage(key: Key('history: $uid')),
-          const SettingsPage(),
+          SettingsPage(key: Key('settings: $uid')),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
