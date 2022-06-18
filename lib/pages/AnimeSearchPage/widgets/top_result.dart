@@ -1,8 +1,8 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
-
-// Third Party Packages
-import 'package:better_player/better_player.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
@@ -21,45 +21,37 @@ class TopResult extends StatefulWidget {
 }
 
 class _TopResultState extends State<TopResult> {
-  late BetterPlayerController _betterPlayerController;
+  late VideoPlayerController _videoPlayerController;
+  ChewieController? _chewieController;
 
-  void _handleControlVisibility(BetterPlayerEvent event) async {
-    switch (event.betterPlayerEventType) {
-      case BetterPlayerEventType.play:
-        await Future.delayed(const Duration(milliseconds: 200));
-        _betterPlayerController.setControlsVisibility(false);
-        break;
-      case BetterPlayerEventType.exception:
-        _betterPlayerController.retryDataSource();
-        break;
-      default:
-    }
+  void _handleVideoPlayerEvents() {
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      aspectRatio: _videoPlayerController.value.aspectRatio,
+      autoInitialize: true,
+      autoPlay: UserPreferences().shouldAutoplay,
+      looping: UserPreferences().shouldLoop,
+      showOptions: false,
+      allowFullScreen: !kIsWeb,
+    );
+    setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    final betterPlayerConfiguration = BetterPlayerConfiguration(
-      fit: BoxFit.contain,
-      autoPlay: UserPreferences().shouldAutoplay,
-      looping: UserPreferences().shouldLoop,
-      controlsConfiguration: const BetterPlayerControlsConfiguration(
-        enableOverflowMenu: false,
-      ),
-    );
-    final dataSource = BetterPlayerDataSource(
-      BetterPlayerDataSourceType.network,
+    _videoPlayerController = VideoPlayerController.network(
       widget.anime.videoURL,
-    );
-    _betterPlayerController = BetterPlayerController(betterPlayerConfiguration);
-    _betterPlayerController.setupDataSource(dataSource);
-    _betterPlayerController.addEventsListener(_handleControlVisibility);
+    )
+      ..initialize()
+      ..addListener(_handleVideoPlayerEvents);
   }
 
   @override
   void dispose() {
-    _betterPlayerController.removeEventsListener(_handleControlVisibility);
-    _betterPlayerController.dispose();
+    _videoPlayerController.removeListener(_handleVideoPlayerEvents);
+    _videoPlayerController.dispose();
+    _chewieController?.dispose();
     super.dispose();
   }
 
@@ -78,7 +70,9 @@ class _TopResultState extends State<TopResult> {
             ),
             child: AspectRatio(
               aspectRatio: 16 / 9,
-              child: BetterPlayer(controller: _betterPlayerController),
+              child: _chewieController == null
+                  ? null
+                  : Chewie(controller: _chewieController!),
             ),
           ),
           const SizedBox(height: 8),
