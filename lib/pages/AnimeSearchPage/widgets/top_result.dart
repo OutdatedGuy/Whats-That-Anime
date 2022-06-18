@@ -73,7 +73,7 @@ class _TopResultState extends State<TopResult> {
               child: AspectRatio(
                 aspectRatio: 16 / 9,
                 child: _chewieController == null
-                    ? null
+                    ? const Center(child: CircularProgressIndicator())
                     : Chewie(controller: _chewieController!),
               ),
             ),
