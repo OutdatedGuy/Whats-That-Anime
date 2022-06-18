@@ -25,10 +25,10 @@ class _TopResultState extends State<TopResult> {
   ChewieController? _chewieController;
 
   void _handleVideoPlayerEvents() {
+    _videoPlayerController.removeListener(_handleVideoPlayerEvents);
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       aspectRatio: _videoPlayerController.value.aspectRatio,
-      autoInitialize: true,
       autoPlay: UserPreferences().shouldAutoplay,
       looping: UserPreferences().shouldLoop,
       showOptions: false,
