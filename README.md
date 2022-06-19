@@ -39,7 +39,7 @@ This package currently is only tested on android platform.
 
 - [x] android
 - [ ] ios
-- [ ] web
+- [ ] web (in beta mode) (`web_support` branch)
 - [ ] windows
 - [ ] macos
 - [ ] linux
