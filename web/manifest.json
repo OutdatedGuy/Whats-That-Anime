@@ -1,6 +1,6 @@
 {
-    "name": "whats_that_anime",
-    "short_name": "whats_that_anime",
+    "name": "What's That Anime",
+    "short_name": "What's That Anime",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
