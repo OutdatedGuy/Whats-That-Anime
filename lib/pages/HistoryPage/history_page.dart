@@ -50,7 +50,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 records.add(
                   Container(
                     constraints: const BoxConstraints(maxWidth: 400),
-                    padding: const EdgeInsets.all(8.0),
+                    margin: const EdgeInsets.all(8.0),
                     child: Hero(
                       tag: documentSnapshots[index].reference,
                       child: RecordTile(
@@ -66,8 +66,6 @@ class _HistoryPageState extends State<HistoryPage> {
 
                 return Wrap(
                   alignment: WrapAlignment.center,
-                  spacing: 20,
-                  runSpacing: 20,
                   children: records,
                 );
               },
