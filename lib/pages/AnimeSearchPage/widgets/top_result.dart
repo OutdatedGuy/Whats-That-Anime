@@ -65,6 +65,7 @@ class _TopResultState extends State<TopResult> {
       constraints: const BoxConstraints(maxWidth: 600),
       child: Card(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.only(

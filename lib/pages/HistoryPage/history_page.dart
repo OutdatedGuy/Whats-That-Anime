@@ -14,8 +14,15 @@ import 'package:whats_that_anime/models/anime_info.dart';
 // Widgets
 import 'widgets/record_tile.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
+
+  @override
+  State<HistoryPage> createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
+  List<Widget> records = [];
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +35,40 @@ class HistoryPage extends StatelessWidget {
           : PaginateFirestore(
               //item builder type is compulsory.
               itemBuilder: (context, documentSnapshots, index) {
+                if (index == 0) records.clear();
+
                 final data = documentSnapshots[index].data() as Map?;
-                if (data == null) return Container();
+                if (data == null) {
+                  records.add(Container());
+                  return Container();
+                }
+
                 AnimeInfo animeInfo = AnimeInfo.fromMap(
                   data['topResult'] as Map<String, dynamic>,
                 );
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    child: Container(
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      child: Hero(
-                        tag: documentSnapshots[index].reference,
-                        child: RecordTile(
-                          anime: animeInfo,
-                          imageURL: data['imageURL'] as String,
-                          recordRef: documentSnapshots[index].reference,
-                        ),
+
+                records.add(
+                  Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Hero(
+                      tag: documentSnapshots[index].reference,
+                      child: RecordTile(
+                        anime: animeInfo,
+                        imageURL: data['imageURL'] as String,
+                        recordRef: documentSnapshots[index].reference,
                       ),
                     ),
                   ),
+                );
+
+                if (index != documentSnapshots.length - 1) return Container();
+
+                return Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: 20,
+                  runSpacing: 20,
+                  children: records,
                 );
               },
               onEmpty: const Center(child: Text('No records found')),
