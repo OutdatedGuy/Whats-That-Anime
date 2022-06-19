@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:whats_that_anime/models/anime_info.dart';
 
 // Widgets
-import 'top_result.dart';
+import 'other_result.dart';
 
 class ResultTile extends StatelessWidget {
   const ResultTile({Key? key, required this.animeInfo}) : super(key: key);
@@ -31,14 +31,7 @@ class ResultTile extends StatelessWidget {
             Navigator.push<void>(
               context,
               MaterialPageRoute(
-                builder: (context) => Align(
-                  child: Hero(
-                    tag: animeInfo,
-                    child: SafeArea(
-                      child: TopResult(anime: animeInfo),
-                    ),
-                  ),
-                ),
+                builder: (context) => OtherResult(anime: animeInfo),
               ),
             );
           },
