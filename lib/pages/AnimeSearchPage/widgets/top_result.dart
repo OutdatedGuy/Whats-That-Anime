@@ -23,9 +23,21 @@ class TopResult extends StatefulWidget {
 class _TopResultState extends State<TopResult> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
+  bool loaded = false;
 
-  void _handleVideoPlayerEvents() {
-    _videoPlayerController.removeListener(_handleVideoPlayerEvents);
+  void _handleVideoPlayerEvents() async {
+    if (loaded) {
+      _videoPlayerController.removeListener(_handleVideoPlayerEvents);
+      return;
+    }
+
+    if (_videoPlayerController.value.duration == Duration.zero) {
+      await _videoPlayerController.dispose();
+      _videoPlayerController.initialize();
+      return;
+    }
+
+    loaded = true;
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       aspectRatio: _videoPlayerController.value.aspectRatio,
