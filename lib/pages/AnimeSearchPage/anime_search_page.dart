@@ -117,40 +117,38 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
                 ? const Center(
                     child: Text('No results found.'),
                   )
-                : Padding(
+                : ListView(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView(
-                      children: [
-                        Align(
-                          child: Text('Top Result', style: text),
-                        ),
-                        const SizedBox(height: 5),
-                        Align(
-                          child: Hero(
-                            tag: widget.recordRef?.parent.parent ??
-                                widget.imageURL,
-                            child: TopResult(
-                              key: ValueKey(_animeInfoList!.first),
-                              anime: _animeInfoList!.first,
-                            ),
+                    children: [
+                      Align(
+                        child: Text('Top Result', style: text),
+                      ),
+                      const SizedBox(height: 5),
+                      Align(
+                        child: Hero(
+                          tag: widget.recordRef?.parent.parent ??
+                              widget.imageURL,
+                          child: TopResult(
+                            key: ValueKey(_animeInfoList!.first),
+                            anime: _animeInfoList!.first,
                           ),
                         ),
-                        const SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Other Results:',
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
+                      ),
+                      const SizedBox(height: 20),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Other Results:',
+                          style: Theme.of(context).textTheme.headline6,
                         ),
-                        const SizedBox(height: 10),
-                        for (final animeInfo in _animeInfoList!.skip(1))
-                          ResultTile(
-                            key: ValueKey(animeInfo),
-                            animeInfo: animeInfo,
-                          ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(height: 10),
+                      for (final animeInfo in _animeInfoList!.skip(1))
+                        ResultTile(
+                          key: ValueKey(animeInfo),
+                          animeInfo: animeInfo,
+                        ),
+                    ],
                   ),
       ),
     );
