@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 35),
-          MySearchButton(image: _image, onPressed: _uploadImage),
+          MySearchButton(hidden: _image == null, onPressed: _uploadImage),
           const Spacer(),
           ElevatedButton(
             onPressed: _selectImage,
