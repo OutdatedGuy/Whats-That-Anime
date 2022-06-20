@@ -1,6 +1,5 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 // Dart Packages
 import 'dart:io';
@@ -29,8 +28,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   File? _image;
 
-  void _setImage(ImageSource source) async {
-    File? image = await getImage(source: source);
+  void _selectImage() async {
+    File? image = await getImage();
     _image = image ?? _image;
     setState(() {});
   }
@@ -94,17 +93,8 @@ class _HomePageState extends State<HomePage> {
           MySearchButton(image: _image, onPressed: _uploadImage),
           const Spacer(),
           ElevatedButton(
-            onPressed: () {
-              _setImage(ImageSource.gallery);
-            },
+            onPressed: _selectImage,
             child: const Text('Select from Gallery'),
-          ),
-          const SizedBox(height: 15),
-          ElevatedButton(
-            onPressed: () {
-              _setImage(ImageSource.camera);
-            },
-            child: const Text('Select from Camera'),
           ),
           const SizedBox(height: 20),
         ],
