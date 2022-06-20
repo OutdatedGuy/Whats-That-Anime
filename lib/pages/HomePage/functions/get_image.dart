@@ -4,9 +4,9 @@ import 'package:image_picker/image_picker.dart';
 // Dart Packages
 import 'dart:io';
 
-Future<File?> getImage({required ImageSource source}) async {
+Future<File?> getImage() async {
   final XFile? image = await ImagePicker().pickImage(
-    source: source,
+    source: ImageSource.gallery,
     imageQuality: 40,
   );
 
