@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
           : setState(() {});
     });
 
-    Timer(const Duration(milliseconds: 690), FlutterNativeSplash.remove);
+    Timer(const Duration(milliseconds: 420), FlutterNativeSplash.remove);
   }
 
   @override
