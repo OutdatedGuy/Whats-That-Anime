@@ -27,6 +27,7 @@ import 'package:whats_that_anime/models/user_preferences.dart';
 
 // Themes
 import 'themes/app_theme.dart';
+import 'themes/system_ui_theme.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -108,11 +109,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeMode themeMode = UserPreferences().theme;
+
     return MaterialApp(
       title: 'What\'s That Anime',
       theme: appTheme(Brightness.light),
       darkTheme: appTheme(Brightness.dark),
-      themeMode: UserPreferences().theme,
+      themeMode: themeMode,
       home: IndexedStack(
         index: isConnected ? 0 : 1,
         children: const [
@@ -120,7 +123,14 @@ class _MyAppState extends State<MyApp> {
           OfflinePage(),
         ],
       ),
-      builder: EasyLoading.init(),
+      builder: EasyLoading.init(
+        builder: (context, child) {
+          return AnnotatedRegion<SystemUiOverlayStyle>(
+            value: systemUITheme(context: context, themeMode: themeMode),
+            child: child ?? Container(),
+          );
+        },
+      ),
     );
   }
 }
