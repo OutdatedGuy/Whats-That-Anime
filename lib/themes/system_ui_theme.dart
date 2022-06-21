@@ -10,6 +10,11 @@ SystemUiOverlayStyle systemUITheme({
   Brightness brightness = isLight ? Brightness.dark : Brightness.light;
 
   return SystemUiOverlayStyle(
+    // Applied when appBar is not shown.
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: brightness,
+    systemStatusBarContrastEnforced: false,
+
     systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
     systemNavigationBarDividerColor: Colors.transparent,
     systemNavigationBarIconBrightness: brightness,
