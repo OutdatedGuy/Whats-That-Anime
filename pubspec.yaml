@@ -69,7 +69,7 @@ dependencies:
   package_info_plus: ^1.4.2
 
   # To get status of internet connectivity
-  internet_connection_checker: ^0.0.1+4
+  internet_connection_checker_plus: ^0.0.1
 
   # To create launch splash screen
   # flutter pub run flutter_native_splash:create

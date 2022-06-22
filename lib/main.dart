@@ -1,7 +1,6 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 // Dart Packages
 import 'dart:async';
@@ -14,7 +13,7 @@ import 'firebase_options.dart';
 // Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Screens
@@ -65,7 +64,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late StreamSubscription<User?> _userSubscription;
-  StreamSubscription<InternetConnectionStatus>? connectionSub;
+  late StreamSubscription<InternetConnectionStatus> connectionSub;
   VoidCallback? disposeListener;
   bool isConnected = true;
 
@@ -86,20 +85,18 @@ class _MyAppState extends State<MyApp> {
     );
     FirebaseAuth.instance.signInAnonymously();
 
-    // ! Try for a way to check for internet connection in the future for web
-    // TODO(OutdatedGuy): Create a web only plugin for this
-    connectionSub = kIsWeb
-        ? null
-        : InternetConnectionChecker().onStatusChange.listen((status) {
-            bool inNowConnected = status == InternetConnectionStatus.connected;
+    connectionSub = InternetConnectionCheckerPlus().onStatusChange.listen(
+      (status) {
+        bool inNowConnected = status == InternetConnectionStatus.connected;
 
-            if (inNowConnected == isConnected) return;
+        if (inNowConnected == isConnected) return;
 
-            isConnected = inNowConnected;
-            FirebaseAuth.instance.currentUser?.uid == null
-                ? FirebaseAuth.instance.signInAnonymously()
-                : setState(() {});
-          });
+        isConnected = inNowConnected;
+        FirebaseAuth.instance.currentUser?.uid == null
+            ? FirebaseAuth.instance.signInAnonymously()
+            : setState(() {});
+      },
+    );
 
     Timer(const Duration(milliseconds: 420), FlutterNativeSplash.remove);
   }
@@ -107,7 +104,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     _userSubscription.cancel();
-    connectionSub?.cancel();
+    connectionSub.cancel();
     disposeListener?.call();
     super.dispose();
   }
