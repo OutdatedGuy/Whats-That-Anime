@@ -13,7 +13,7 @@ class OfflinePage extends StatelessWidget {
           children: [
             Container(
               width: MediaQuery.of(context).size.width * 0.7,
-              constraints: const BoxConstraints(maxWidth: 500),
+              constraints: const BoxConstraints(maxWidth: 400),
               child: Image.asset('assets/images/offline.png'),
             ),
             const SizedBox(height: 20),
