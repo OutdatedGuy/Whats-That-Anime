@@ -117,9 +117,11 @@ class _MyAppState extends State<MyApp> {
       themeMode: themeMode,
       home: IndexedStack(
         index: isConnected ? 0 : 1,
-        children: const [
-          MainScreen(),
-          OfflinePage(),
+        children: [
+          MainScreen(
+            uid: FirebaseAuth.instance.currentUser?.uid,
+          ),
+          const OfflinePage(),
         ],
       ),
       builder: EasyLoading.init(
