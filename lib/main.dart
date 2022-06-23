@@ -83,7 +83,6 @@ class _MyAppState extends State<MyApp> {
         setState(() {});
       },
     );
-    FirebaseAuth.instance.signInAnonymously();
 
     connectionSub = InternetConnectionCheckerPlus().onStatusChange.listen(
       (status) {
@@ -95,7 +94,7 @@ class _MyAppState extends State<MyApp> {
       },
     );
 
-    Timer(const Duration(milliseconds: 420), FlutterNativeSplash.remove);
+    Timer(const Duration(milliseconds: 690), FlutterNativeSplash.remove);
   }
 
   @override
