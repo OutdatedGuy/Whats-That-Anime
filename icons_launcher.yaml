@@ -1,8 +1,9 @@
 # For App Launcher icon
+# flutter pub run icons_launcher:create
 flutter_icons:
   android: true
   ios: false
-  web: false
+  web: true
   windows: false
   macos: false
   linux: false

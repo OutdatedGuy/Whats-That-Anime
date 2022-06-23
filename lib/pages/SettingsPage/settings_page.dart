@@ -97,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 final Uri launchUri = Uri(
                   scheme: 'https',
-                  path: 'OutdatedGuy.rocks',
+                  host: 'OutdatedGuy.rocks',
                 );
                 launchUrl(launchUri, mode: LaunchMode.externalApplication);
               },
@@ -109,7 +109,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 final Uri launchUri = Uri(
                   scheme: 'https',
-                  path: 'github.com/OutdatedGuy/Whats-That-Anime/issues/new',
+                  host: 'github.com',
+                  path: 'OutdatedGuy/Whats-That-Anime/issues/new',
                   queryParameters: {
                     'assignees': '',
                     'labels': '',
@@ -127,7 +128,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 final Uri launchUri = Uri(
                   scheme: 'https',
-                  path: 'github.com/OutdatedGuy/Whats-That-Anime/discussions',
+                  host: 'github.com',
+                  path: 'OutdatedGuy/Whats-That-Anime/discussions',
                 );
                 launchUrl(launchUri, mode: LaunchMode.externalApplication);
               },
@@ -139,7 +141,8 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 final Uri launchUri = Uri(
                   scheme: 'https',
-                  path: 'github.com/OutdatedGuy/Whats-That-Anime/issues/new',
+                  host: 'github.com',
+                  path: 'OutdatedGuy/Whats-That-Anime/issues/new',
                   queryParameters: {
                     'assignees': '',
                     'labels': '',

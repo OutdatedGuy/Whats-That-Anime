@@ -1,11 +1,11 @@
 {
-    "name": "whats_that_anime",
-    "short_name": "whats_that_anime",
+    "name": "What's That Anime",
+    "short_name": "What's That Anime",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#673AB7",
+    "theme_color": "#673AB7",
+    "description": "An Image Search App to find Anime Details related to the Image by using trace.moe API",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

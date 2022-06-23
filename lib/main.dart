@@ -13,7 +13,7 @@ import 'firebase_options.dart';
 // Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 // Screens
@@ -83,20 +83,18 @@ class _MyAppState extends State<MyApp> {
         setState(() {});
       },
     );
-    FirebaseAuth.instance.signInAnonymously();
 
-    connectionSub = InternetConnectionChecker().onStatusChange.listen((status) {
-      bool inNowConnected = status == InternetConnectionStatus.connected;
+    connectionSub = InternetConnectionCheckerPlus().onStatusChange.listen(
+      (status) {
+        isConnected = status == InternetConnectionStatus.connected;
 
-      if (inNowConnected == isConnected) return;
+        isConnected && FirebaseAuth.instance.currentUser?.uid == null
+            ? FirebaseAuth.instance.signInAnonymously()
+            : setState(() {});
+      },
+    );
 
-      isConnected = inNowConnected;
-      FirebaseAuth.instance.currentUser?.uid == null
-          ? FirebaseAuth.instance.signInAnonymously()
-          : setState(() {});
-    });
-
-    Timer(const Duration(milliseconds: 420), FlutterNativeSplash.remove);
+    Timer(const Duration(milliseconds: 690), FlutterNativeSplash.remove);
   }
 
   @override
@@ -118,9 +116,11 @@ class _MyAppState extends State<MyApp> {
       themeMode: themeMode,
       home: IndexedStack(
         index: isConnected ? 0 : 1,
-        children: const [
-          MainScreen(),
-          OfflinePage(),
+        children: [
+          MainScreen(
+            uid: FirebaseAuth.instance.currentUser?.uid,
+          ),
+          const OfflinePage(),
         ],
       ),
       builder: EasyLoading.init(

@@ -1,5 +1,7 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:image_picker/image_picker.dart';
 
 // Dart Packages
 import 'dart:io';
@@ -14,7 +16,6 @@ import 'package:whats_that_anime/models/my_result.dart';
 import 'widgets/my_search_button.dart';
 
 // Functions
-import 'functions/get_image.dart';
 import 'functions/upload_image_to_firebase.dart';
 import 'functions/show_result_toast.dart';
 
@@ -26,11 +27,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  File? _image;
+  XFile? _image;
 
   void _selectImage() async {
-    File? image = await getImage();
-    _image = image ?? _image;
+    _image = await ImagePicker().pickImage(
+          source: ImageSource.gallery,
+          imageQuality: 40,
+        ) ??
+        _image;
     setState(() {});
   }
 
@@ -68,6 +72,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 35),
           Container(
             width: MediaQuery.of(context).size.width * 0.8,
+            constraints: const BoxConstraints(minWidth: 100, maxWidth: 600),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Theme.of(context).colorScheme.primary,
@@ -80,17 +85,24 @@ class _HomePageState extends State<HomePage> {
               child: Center(
                 child: _image == null
                     ? const Text('No Image Selected')
-                    : Image.file(
-                        _image!,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Placeholder();
-                        },
-                      ),
+                    : kIsWeb
+                        ? Image.network(
+                            _image!.path,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Placeholder();
+                            },
+                          )
+                        : Image.file(
+                            File(_image!.path),
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Placeholder();
+                            },
+                          ),
               ),
             ),
           ),
           const SizedBox(height: 35),
-          MySearchButton(image: _image, onPressed: _uploadImage),
+          MySearchButton(hidden: _image == null, onPressed: _uploadImage),
           const Spacer(),
           ElevatedButton(
             onPressed: _selectImage,

@@ -1,19 +1,16 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 
-// Dart Packages
-import 'dart:io';
-
 class MySearchButton extends StatelessWidget {
   const MySearchButton({
     Key? key,
-    required File? image,
+    required bool hidden,
     required VoidCallback onPressed,
-  })  : _image = image,
+  })  : _hidden = hidden,
         _onPressed = onPressed,
         super(key: key);
 
-  final File? _image;
+  final bool _hidden;
   final VoidCallback _onPressed;
 
   @override
@@ -31,16 +28,16 @@ class MySearchButton extends StatelessWidget {
           child: child,
         ),
       ),
-      child: _image != null
-          ? ElevatedButton(
+      child: _hidden
+          ? const SizedBox.shrink()
+          : ElevatedButton(
               onPressed: _onPressed,
               style: ElevatedButton.styleFrom(
                 primary: Theme.of(context).colorScheme.secondary,
                 onPrimary: Theme.of(context).colorScheme.onSecondary,
               ),
               child: const Text('Search this Image'),
-            )
-          : const SizedBox.shrink(),
+            ),
     );
   }
 }
