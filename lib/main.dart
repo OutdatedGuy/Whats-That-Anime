@@ -87,12 +87,9 @@ class _MyAppState extends State<MyApp> {
 
     connectionSub = InternetConnectionCheckerPlus().onStatusChange.listen(
       (status) {
-        bool inNowConnected = status == InternetConnectionStatus.connected;
+        isConnected = status == InternetConnectionStatus.connected;
 
-        if (inNowConnected == isConnected) return;
-
-        isConnected = inNowConnected;
-        inNowConnected && FirebaseAuth.instance.currentUser?.uid == null
+        isConnected && FirebaseAuth.instance.currentUser?.uid == null
             ? FirebaseAuth.instance.signInAnonymously()
             : setState(() {});
       },
