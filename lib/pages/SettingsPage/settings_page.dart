@@ -103,6 +103,19 @@ class _SettingsPageState extends State<SettingsPage> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.api_rounded),
+              title: const Text('API Creator'),
+              trailing: const Icon(Icons.arrow_forward),
+              onTap: () {
+                final Uri launchUri = Uri(
+                  scheme: 'https',
+                  host: 'github.com',
+                  path: 'soruly',
+                );
+                launchUrl(launchUri, mode: LaunchMode.externalApplication);
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.bug_report),
               title: const Text('Report a bug'),
               trailing: const Icon(Icons.arrow_forward),
