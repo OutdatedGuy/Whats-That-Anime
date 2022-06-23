@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
         if (inNowConnected == isConnected) return;
 
         isConnected = inNowConnected;
-        FirebaseAuth.instance.currentUser?.uid == null
+        inNowConnected && FirebaseAuth.instance.currentUser?.uid == null
             ? FirebaseAuth.instance.signInAnonymously()
             : setState(() {});
       },
