@@ -35,19 +35,18 @@ An **Image Search** App to find **Anime** Details related to the Image. Created 
 
 ## Support
 
-This package currently is only tested on android platform.
+This package currently is only tested on android and the web platform.
 
 - [x] android
 - [ ] ios
-- [ ] web (in beta mode) (`web_support` branch)
+- [x] web
 - [ ] windows
 - [ ] macos
 - [ ] linux
 
 ## Whats Next?
 
-- Add web platform support
-- Add ios platform suppport
+- Add ios platform suppport (PRs welcome)
 
 ## Contributing
 
