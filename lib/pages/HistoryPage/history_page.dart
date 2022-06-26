@@ -21,7 +21,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 // Third Party Packages
-import 'package:paginate_firestore/paginate_firestore.dart';
+import 'package:firebase_pagination/firebase_pagination.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
@@ -47,55 +47,43 @@ class _HistoryPageState extends State<HistoryPage> {
       appBar: AppBar(title: const Text('Search History')),
       body: uid == null
           ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
-          : PaginateFirestore(
-              //item builder type is compulsory.
-              itemBuilder: (context, documentSnapshots, index) {
-                if (index == 0) records.clear();
+          : SizedBox(
+              width: double.infinity,
+              child: FirestorePagination(
+                query: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .collection('animeSearches')
+                    .orderBy('timestamp', descending: true),
+                limit: 5,
+                itemBuilder: (context, documentSnapshot, index) {
+                  final data = documentSnapshot.data() as Map?;
 
-                final data = documentSnapshots[index].data() as Map?;
-                if (data == null) {
-                  records.add(Container());
-                  return Container();
-                }
+                  if (data == null) return Container();
 
-                AnimeInfo animeInfo = AnimeInfo.fromMap(
-                  data['topResult'] as Map<String, dynamic>,
-                );
+                  AnimeInfo animeInfo = AnimeInfo.fromMap(
+                    data['topResult'] as Map<String, dynamic>,
+                  );
 
-                records.add(
-                  Container(
+                  return Container(
                     constraints: const BoxConstraints(maxWidth: 400),
                     margin: const EdgeInsets.all(8.0),
                     child: Hero(
-                      tag: documentSnapshots[index].reference,
+                      tag: documentSnapshot.reference,
                       child: RecordTile(
                         anime: animeInfo,
                         imageURL: data['imageURL'] as String,
-                        recordRef: documentSnapshots[index].reference,
+                        recordRef: documentSnapshot.reference,
                       ),
                     ),
-                  ),
-                );
-
-                if (index != documentSnapshots.length - 1) return Container();
-
-                return Wrap(
+                  );
+                },
+                viewType: ViewType.wrap,
+                wrapOptions: const WrapOptions(
                   alignment: WrapAlignment.center,
-                  children: records,
-                );
-              },
-              onEmpty: const Center(child: Text('No records found')),
-              itemsPerPage: 5,
-              // orderBy is compulsory to enable pagination
-              query: FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(FirebaseAuth.instance.currentUser?.uid)
-                  .collection('animeSearches')
-                  .orderBy('timestamp', descending: true),
-              //Change types accordingly
-              itemBuilderType: PaginateBuilderType.listView,
-              // to fetch real-time data
-              isLive: true,
+                  runSpacing: 0.0,
+                ),
+              ),
             ),
     );
   }
