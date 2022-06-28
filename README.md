@@ -39,9 +39,9 @@ This package currently is only tested on android and the web platform.
 <details>
   <summary>✅ android</summary>
   
-  + [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/download/v2.0.0/android-arm32-release.apk)
-  + [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/download/v2.0.0/android-arm64-release.apk)
-  + [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/download/v2.0.0/android-x86_64-release.apk)
+  - [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/download/v2.0.0/android-arm32-release.apk)
+  - [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/download/v2.0.0/android-arm64-release.apk)
+  - [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/download/v2.0.0/android-x86_64-release.apk)
 </details>
 
 <details>
