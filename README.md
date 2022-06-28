@@ -33,16 +33,28 @@ An **Image Search** App to find **Anime** Details related to the Image. Created 
 - View and Manage History of all searches
 - Customize App Behaviour from Settings Page
 
-## Support
+## Platform Support
 
 This package currently is only tested on android and the web platform.
+<details>
+  <summary>✅ android</summary>
 
-- [x] android
-- [ ] ios
-- [x] web
-- [ ] windows
-- [ ] macos
-- [ ] linux
+  - [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm32-release.apk)
+  - [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm64-release.apk)
+  - [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-x86_64-release.apk)
+</details>
+
+<details>
+  <summary>✅ <a href="https://whats-that-anime.outdatedguy.rocks/">web</a></summary>
+
+  - [whats-that-anime.outdatedguy.rocks](https://whats-that-anime.outdatedguy.rocks/)
+</details> 
+
+🔳 ios  
+🔳 windows  
+🔳 macos  
+🔳 linux  
+
 
 ## Whats Next?
 
