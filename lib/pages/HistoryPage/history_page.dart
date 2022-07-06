@@ -50,14 +50,20 @@ class _HistoryPageState extends State<HistoryPage> {
           : SizedBox(
               width: double.infinity,
               child: FirestorePagination(
+                limit: 5,
+                viewType: ViewType.wrap,
+                isLive: true,
+                wrapOptions: const WrapOptions(
+                  alignment: WrapAlignment.center,
+                  runSpacing: 0.0,
+                ),
                 query: FirebaseFirestore.instance
                     .collection('users')
                     .doc(FirebaseAuth.instance.currentUser?.uid)
                     .collection('animeSearches')
                     .orderBy('timestamp', descending: true),
-                limit: 5,
                 itemBuilder: (context, documentSnapshot, index) {
-                  final data = documentSnapshot.data() as Map?;
+                  final data = documentSnapshot.data() as Map<String, dynamic>?;
 
                   if (data == null) return Container();
 
@@ -78,11 +84,6 @@ class _HistoryPageState extends State<HistoryPage> {
                     ),
                   );
                 },
-                viewType: ViewType.wrap,
-                wrapOptions: const WrapOptions(
-                  alignment: WrapAlignment.center,
-                  runSpacing: 0.0,
-                ),
               ),
             ),
     );
