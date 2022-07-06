@@ -28,7 +28,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   XFile? _image;
-  bool _imageHovered = false;
+  bool _isImageHovered = false;
 
   void _selectImage() async {
     _image = await ImagePicker().pickImage(
@@ -82,11 +82,11 @@ class _HomePageState extends State<HomePage> {
                 }
               }
             },
-            onDragEntered: (_) => setState(() => _imageHovered = true),
-            onDragExited: (_) => setState(() => _imageHovered = false),
+            onDragEntered: (_) => setState(() => _isImageHovered = true),
+            onDragExited: (_) => setState(() => _isImageHovered = false),
             child: Container(
               foregroundDecoration: BoxDecoration(
-                color: _imageHovered
+                color: _isImageHovered
                     ? Theme.of(context).colorScheme.primary.withOpacity(0.420)
                     : null,
               ),
