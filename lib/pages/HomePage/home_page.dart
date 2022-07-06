@@ -1,10 +1,9 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:image_picker/image_picker.dart';
 
-// Dart Packages
-import 'dart:io';
+// Third Party Packages
+import 'package:desktop_drop/desktop_drop.dart';
 
 // Pages
 import 'package:whats_that_anime/pages/AnimeSearchPage/anime_search_page.dart';
@@ -13,6 +12,7 @@ import 'package:whats_that_anime/pages/AnimeSearchPage/anime_search_page.dart';
 import 'package:whats_that_anime/models/my_result.dart';
 
 // Widgets
+import 'widgets/image_preview.dart';
 import 'widgets/my_search_button.dart';
 
 // Functions
@@ -28,6 +28,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   XFile? _image;
+  bool _imageHovered = false;
 
   void _selectImage() async {
     _image = await ImagePicker().pickImage(
@@ -70,35 +71,26 @@ class _HomePageState extends State<HomePage> {
           // ! To maximize colum's width, do not remove
           Row(),
           const SizedBox(height: 35),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            constraints: const BoxConstraints(minWidth: 100, maxWidth: 600),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Theme.of(context).colorScheme.primary,
-                width: 1,
+          DropTarget(
+            onDragDone: (data) {
+              if (data.files.isEmpty) return;
+
+              for (final file in data.files) {
+                if (file.mimeType?.startsWith('image/') ?? false) {
+                  setState(() => _image = file);
+                  break;
+                }
+              }
+            },
+            onDragEntered: (_) => setState(() => _imageHovered = true),
+            onDragExited: (_) => setState(() => _imageHovered = false),
+            child: Container(
+              foregroundDecoration: BoxDecoration(
+                color: _imageHovered
+                    ? Theme.of(context).colorScheme.primary.withOpacity(0.420)
+                    : null,
               ),
-              color: _image != null ? Colors.black87 : null,
-            ),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Center(
-                child: _image == null
-                    ? const Text('No Image Selected')
-                    : kIsWeb
-                        ? Image.network(
-                            _image!.path,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Placeholder();
-                            },
-                          )
-                        : Image.file(
-                            File(_image!.path),
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Placeholder();
-                            },
-                          ),
-              ),
+              child: ImagePreview(image: _image),
             ),
           ),
           const SizedBox(height: 35),
