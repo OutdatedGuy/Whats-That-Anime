@@ -46,12 +46,13 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Search History')),
       body: uid == null
-          ? const Center(child: CircularProgressIndicator(strokeWidth: 2))
+          ? const Center(child: CircularProgressIndicator())
           : SizedBox(
               width: double.infinity,
               child: FirestorePagination(
-                limit: 5,
+                limit: 6,
                 viewType: ViewType.wrap,
+                onEmpty: const Center(child: Text('No records found')),
                 isLive: true,
                 wrapOptions: const WrapOptions(
                   alignment: WrapAlignment.center,
