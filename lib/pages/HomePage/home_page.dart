@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+// Dart Packages
+import 'dart:typed_data';
+
 // Third Party Packages
 import 'package:desktop_drop/desktop_drop.dart';
 
@@ -27,21 +30,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  XFile? _image;
+  Uint8List? _imageData;
   bool _isImageHovered = false;
 
   void _selectImage() async {
-    _image = await ImagePicker().pickImage(
-          source: ImageSource.gallery,
-          imageQuality: 40,
-        ) ??
-        _image;
+    XFile? image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 40,
+    );
+    _imageData = await image?.readAsBytes() ?? _imageData;
     setState(() {});
   }
 
   void _uploadImage() async {
-    if (_image == null) return;
-    MyResult result = await uploadImageToFirebase(_image!);
+    if (_imageData == null) return;
+    MyResult result = await uploadImageToFirebase(XFile.fromData(_imageData!));
 
     if (!mounted) return;
 
@@ -53,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-      _image = null;
+      _imageData = null;
       setState(() {});
     } else {
       showResultToast(context: context, result: result);
@@ -72,12 +75,13 @@ class _HomePageState extends State<HomePage> {
           Row(),
           const SizedBox(height: 35),
           DropTarget(
-            onDragDone: (data) {
+            onDragDone: (data) async {
               if (data.files.isEmpty) return;
 
               for (final file in data.files) {
                 if (file.mimeType?.startsWith('image/') ?? false) {
-                  setState(() => _image = file);
+                  _imageData = await file.readAsBytes();
+                  setState(() {});
                   break;
                 }
               }
@@ -90,11 +94,11 @@ class _HomePageState extends State<HomePage> {
                     ? Theme.of(context).colorScheme.primary.withOpacity(0.420)
                     : null,
               ),
-              child: ImagePreview(image: _image),
+              child: ImagePreview(imageData: _imageData),
             ),
           ),
           const SizedBox(height: 35),
-          MySearchButton(hidden: _image == null, onPressed: _uploadImage),
+          MySearchButton(hidden: _imageData == null, onPressed: _uploadImage),
           const Spacer(),
           ElevatedButton(
             onPressed: _selectImage,
