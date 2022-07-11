@@ -83,14 +83,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 35),
             DropTarget(
               onDragDone: (data) async {
-                if (data.files.isEmpty) return;
-
                 for (final file in data.files) {
-                  if (file.mimeType?.startsWith('image/') ?? false) {
-                    _imageData = await file.readAsBytes();
-                    setState(() {});
-                    break;
-                  }
+                  if (file.mimeType?.startsWith('image/') != true) continue;
+
+                  _imageData = await file.readAsBytes();
+                  setState(() {});
+                  break;
                 }
               },
               onDragEntered: (_) => setState(() => _isImageHovered = true),
