@@ -46,6 +46,7 @@ class ImagePreview extends StatelessWidget {
                     errorBuilder: (p0, p1, p2) => const Icon(
                       Icons.broken_image,
                       color: Colors.red,
+                      size: 48,
                     ),
                   ),
           ),
