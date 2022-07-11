@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
   void _selectImage() async {
     XFile? image = await ImagePicker().pickImage(
       source: ImageSource.gallery,
-      imageQuality: 40,
+      imageQuality: 69,
     );
     _imageData = await image?.readAsBytes() ?? _imageData;
     _mimeType = image?.mimeType ?? _mimeType;
