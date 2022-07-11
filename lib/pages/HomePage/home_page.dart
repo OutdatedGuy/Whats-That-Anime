@@ -33,6 +33,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Uint8List? _imageData;
+  String? _mimeType;
   bool _isImageHovered = false;
 
   void _selectImage() async {
@@ -41,12 +42,15 @@ class _HomePageState extends State<HomePage> {
       imageQuality: 40,
     );
     _imageData = await image?.readAsBytes() ?? _imageData;
+    _mimeType = image?.mimeType ?? _mimeType;
     setState(() {});
   }
 
   void _uploadImage() async {
     if (_imageData == null) return;
-    MyResult result = await uploadImageToFirebase(XFile.fromData(_imageData!));
+    MyResult result = await uploadImageToFirebase(
+      XFile.fromData(_imageData!, mimeType: _mimeType ?? 'image/jpeg'),
+    );
 
     if (!mounted) return;
 
@@ -59,6 +63,7 @@ class _HomePageState extends State<HomePage> {
       );
 
       _imageData = null;
+      _mimeType = null;
       setState(() {});
     } else {
       showResultToast(context: context, result: result);
@@ -67,6 +72,7 @@ class _HomePageState extends State<HomePage> {
 
   void _getImageFromClipboard() async {
     _imageData = await Pasteboard.image ?? _imageData;
+    _mimeType = null;
     setState(() {});
   }
 
@@ -87,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                   if (file.mimeType?.startsWith('image/') != true) continue;
 
                   _imageData = await file.readAsBytes();
+                  _mimeType = file.mimeType;
                   setState(() {});
                   break;
                 }
