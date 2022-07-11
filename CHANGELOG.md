@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2022-07-12
+
+### New Features
+
+- (Web) Added `drag n drop` functionality for image selection (#17). ([c5542b4](https://github.com/OutdatedGuy/Whats-That-Anime/commit/c5542b48f0a9422a956262268b49e1db98aab3b7))
+
 ## [2.0.0] - 2022-06-23
 
 ### New Features
