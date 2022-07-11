@@ -36,7 +36,7 @@ class ImagePreview extends StatelessWidget {
                     children: const [
                       Text('No Image Selected'),
                       SizedBox(height: 10),
-                      Text('Drag and drop an image here'),
+                      Text('Drop or Paste an image here'),
                       SizedBox(height: 10),
                       Icon(Icons.file_download_outlined),
                     ],
