@@ -43,7 +43,10 @@ class ImagePreview extends StatelessWidget {
                   )
                 : Image.memory(
                     imageData!,
-                    errorBuilder: (p0, p1, p2) => const Placeholder(),
+                    errorBuilder: (p0, p1, p2) => const Icon(
+                      Icons.broken_image,
+                      color: Colors.red,
+                    ),
                   ),
           ),
         ),
