@@ -12,8 +12,8 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
-    runs-on: windows-latest
+  lint-and-syntax:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
