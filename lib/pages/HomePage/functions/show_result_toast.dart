@@ -1,6 +1,9 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 
+// Dart Packages
+import 'dart:math';
+
 // Third Party Packages
 import 'package:motion_toast/motion_toast.dart';
 
@@ -20,8 +23,21 @@ void showResultToast({
     style: const TextStyle(color: Colors.black),
   );
 
+  final width = MediaQuery.of(context).size.width;
+  final minWidth = min(width - 20, 320.00);
+  final maxWidth = max(minWidth, width * 0.8);
   toastType(result.status)
-      .call(title: title, description: description)
+      .call(
+        title: title,
+        description: description,
+        width: null,
+        height: null,
+        constraints: BoxConstraints(
+          minWidth: minWidth,
+          maxWidth: maxWidth,
+          maxHeight: 90,
+        ),
+      )
       .show(context);
 }
 
