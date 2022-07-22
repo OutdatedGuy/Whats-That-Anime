@@ -82,7 +82,7 @@ dependencies:
   dotted_border: ^2.0.0+2
 
   # To get image from the clipboard
-  pasteboard: ^0.1.1
+  pasteboard: ^0.2.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
