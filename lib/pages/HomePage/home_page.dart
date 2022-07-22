@@ -41,8 +41,10 @@ class _HomePageState extends State<HomePage> {
       source: ImageSource.gallery,
       imageQuality: 69,
     );
-    _imageData = await image?.readAsBytes() ?? _imageData;
-    _mimeType = image?.mimeType ?? _mimeType;
+    if (image == null) return;
+
+    _imageData = await image.readAsBytes();
+    _mimeType = image.mimeType;
     setState(() {});
   }
 
