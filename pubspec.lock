@@ -527,6 +527,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  pasteboard:
+    dependency: "direct main"
+    description:
+      name: pasteboard
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   path:
     dependency: transitive
     description:
@@ -832,7 +839,7 @@ packages:
       name: video_player_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.11"
+    version: "2.0.12"
   wakelock:
     dependency: transitive
     description:

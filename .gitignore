@@ -48,3 +48,9 @@ app.*.map.json
 
 # Firebase related
 lib/firebase_options.dart
+
+# Environment Variables
+*.env
+
+# Personal files
+*.TODO
