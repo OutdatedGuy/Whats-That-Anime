@@ -2,7 +2,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
-class PasteListener extends StatelessWidget {
+class PasteListener extends StatefulWidget {
   const PasteListener({
     Key? key,
     required this.child,
@@ -13,6 +13,19 @@ class PasteListener extends StatelessWidget {
   final VoidCallback onPaste;
 
   @override
+  State<PasteListener> createState() => _PasteListenerState();
+}
+
+class _PasteListenerState extends State<PasteListener> {
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    FocusScope.of(context).requestFocus(_focusNode);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CallbackShortcuts(
       bindings: {
@@ -20,11 +33,12 @@ class PasteListener extends StatelessWidget {
           LogicalKeyboardKey.keyV,
           control: true,
           includeRepeats: false,
-        ): onPaste,
+        ): widget.onPaste,
       },
       child: Focus(
         autofocus: true,
-        child: child,
+        focusNode: _focusNode,
+        child: widget.child,
       ),
     );
   }
