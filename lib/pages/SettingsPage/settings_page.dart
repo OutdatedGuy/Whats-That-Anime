@@ -6,7 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Pages
-import 'package:whats_that_anime/pages/MyLincensePage/my_lincense_page.dart';
+import 'package:whats_that_anime/pages/MyLicensePage/my_license_page.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/user_preferences.dart';
@@ -176,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => const MyLincensePage(),
+                    builder: (BuildContext context) => const MyLicensePage(),
                   ),
                 );
               },

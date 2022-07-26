@@ -62,7 +62,7 @@ class _ChildFilterTileState extends State<ChildFilterTile> {
         },
         child: Icon(
           isChecked ? Icons.no_adult_content : Icons.warning,
-          key: ValueKey('childfilter-switch: $isChecked'),
+          key: ValueKey('child-filter-switch: $isChecked'),
         ),
       ),
     );
