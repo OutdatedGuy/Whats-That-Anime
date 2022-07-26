@@ -6,7 +6,7 @@
 
 [![Build](https://github.com/OutdatedGuy/Whats-That-Anime/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/OutdatedGuy/Whats-That-Anime/actions/workflows/build.yml)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/OutdatedGuy/Whats-That-Anime)](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest)
-![GitHub release (latest by date)](https://img.shields.io/github/downloads/OutdatedGuy/Whats-That-Anime/latest/total?color=%23c315e6&label=Downloads)
+![GitHub release (latest by date)](https://img.shields.io/github/downloads/OutdatedGuy/Whats-That-Anime/total?color=%23c315e6&label=Downloads)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwhats-that-anime.outdatedguy.rocks)](https://whats-that-anime.outdatedguy.rocks/)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/OutdatedGuy/Whats-That-Anime?color=red)](https://github.com/OutdatedGuy/Whats-That-Anime/pulls?q=is%3Apr+is%3Aclosed)
 ![Platform support](https://img.shields.io/badge/platform-android%20%7C%20web-9cf)
