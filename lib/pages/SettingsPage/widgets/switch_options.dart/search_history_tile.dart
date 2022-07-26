@@ -41,7 +41,7 @@ class _SearchHistoryTileState extends State<SearchHistoryTile> {
         },
         child: Icon(
           isChecked ? Icons.history : Icons.history_toggle_off,
-          key: ValueKey('searchhistory-switch: $isChecked'),
+          key: ValueKey('search-history-switch: $isChecked'),
         ),
       ),
     );

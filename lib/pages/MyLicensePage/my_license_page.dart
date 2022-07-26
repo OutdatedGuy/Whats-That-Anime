@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class MyLincensePage extends StatefulWidget {
-  const MyLincensePage({Key? key}) : super(key: key);
+class MyLicensePage extends StatefulWidget {
+  const MyLicensePage({Key? key}) : super(key: key);
 
   @override
-  State<MyLincensePage> createState() => _MyLincensePageState();
+  State<MyLicensePage> createState() => _MyLicensePageState();
 }
 
-class _MyLincensePageState extends State<MyLincensePage> {
+class _MyLicensePageState extends State<MyLicensePage> {
   PackageInfo? packageInfo;
 
   Future<void> _getPackageInfo() async {

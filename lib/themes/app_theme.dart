@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Themes
-import 'swatchs.dart';
+import 'swatch.dart';
 
 /// Returns a customized [ThemeData] object for the given [Brightness].
 ThemeData appTheme(Brightness mode) {

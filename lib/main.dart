@@ -39,7 +39,7 @@ Future<void> main() async {
       // Initialize Firebase app
       Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
 
-      // Seeting oritation to portrait only
+      // Setting orientation to portrait only
       SystemChrome.setPreferredOrientations(
         <DeviceOrientation>[
           DeviceOrientation.portraitUp,
