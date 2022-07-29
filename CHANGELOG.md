@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2022-07-30
+
+### New Features
+
+- (Web) FEAT: Can select image from clipboard using paste command. [(#26)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/26)
+
+### Added
+
+- FEAT: Workflow to check pushes and PRs on main. [(#19)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/19)
+- FEAT: workflow to checks build on supported platforms. [(#21)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/21)
+- (Web) FEAT: added branding on splash screen. [(#23)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/23)
+- FEAT: added image for discord link preview. [(#29)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/29)
+
+### Improvements
+
+- CHORE: minor dependencies updates. [(#22)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/22)
+- DOCS: added relevant links to badges in readme. [(#24)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/24)
+- FEAT: Responsive toast. [(#25)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/25)
+- CHORE: update dependencies. [(#33)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/33)
+- CHORE: updated dependencies. [(#34)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/34)
+
 ## [2.1.0] - 2022-07-12
 
 ### New Features
