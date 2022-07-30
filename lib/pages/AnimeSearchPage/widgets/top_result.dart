@@ -84,11 +84,14 @@ class _TopResultState extends State<TopResult> {
                 topLeft: Radius.circular(10),
                 topRight: Radius.circular(10),
               ),
-              child: AspectRatio(
-                aspectRatio: 16 / 9,
-                child: _chewieController == null
-                    ? const Center(child: CircularProgressIndicator())
-                    : Chewie(controller: _chewieController!),
+              child: Container(
+                color: Colors.black,
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: _chewieController == null
+                      ? const Center(child: CircularProgressIndicator())
+                      : Chewie(controller: _chewieController!),
+                ),
               ),
             ),
             const SizedBox(height: 8),
