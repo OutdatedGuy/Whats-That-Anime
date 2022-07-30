@@ -1,4 +1,5 @@
 # For App Launch splash screen
+# flutter pub run flutter_native_splash:create
 flutter_native_splash:
   color: "#673AB7"
   image: assets/icons/splash_screen_logo.png
@@ -7,6 +8,10 @@ flutter_native_splash:
   color_dark: "#673AB7"
   image_dark: assets/icons/splash_screen_logo.png
   branding_dark: assets/images/splash_screen_branding.png
+
+  android_12:
+    color: "#673AB7"
+    color_dark: "#673AB7"
 
   android: true
   ios: false
