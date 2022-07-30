@@ -52,17 +52,28 @@ class RecordTile extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 16 / 9,
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Container(
+                  width: double.infinity,
                   color: Colors.black87,
-                  image: DecorationImage(
-                    image: CachedNetworkImageProvider(imageURL),
+                  child: CachedNetworkImage(
+                    imageUrl: imageURL,
+                    fadeOutDuration: const Duration(milliseconds: 300),
                     fit: BoxFit.fitHeight,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => const Center(
+                      child: Icon(
+                        Icons.broken_image,
+                        color: Colors.red,
+                        size: 36,
+                      ),
+                    ),
                   ),
                 ),
               ),
