@@ -1,14 +1,26 @@
 # For App Launcher icon
 # flutter pub run icons_launcher:create
-flutter_icons:
-  android: true
-  ios: false
-  web: true
-  windows: false
-  macos: false
-  linux: false
-
+icons_launcher:
   image_path: "assets/icons/launcher_icon_border.png"
 
-  adaptive_icon_background: "#FF673AB7"
-  adaptive_icon_foreground: "assets/icons/adaptive_logo.png"
+  platforms:
+    android:
+      enable: true
+      adaptive_background_color: "#673AB7"
+      adaptive_foreground_image: "assets/icons/adaptive_logo.png"
+
+    ios:
+      enable: false
+
+    web:
+      enable: true
+      favicon_path: "assets/icons/favicon.png"
+
+    macos:
+      enable: false
+
+    windows:
+      enable: false
+
+    linux:
+      enable: false
