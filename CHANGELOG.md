@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2022-08-02
+
+### Fixes
+
+- (Android) FIX: adaptive icon not displayed properly. [(#37)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/37)
+- (Web) FIX: Link preview image not shown. [(#38)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/38)
+- (Android) FIX: splash screen bg color not set for android 12. [(#39)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/39)
+
+### Improvements
+
+- (Web) REFACTOR: added lang attr in html. [(#40)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/40)
+- REFACTOR: added some decorations. [(#41)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/41)
+- (Web) REFACTOR: added proper favicon. [(#42)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/42)
+- CHORE: updated dependencies. [(#43)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/43)
+- REFACTOR: reduced branding image size. [(#44)](https://github.com/OutdatedGuy/Whats-That-Anime/pull/44)
+
 ## [2.2.0] - 2022-07-30
 
 ### New Features
