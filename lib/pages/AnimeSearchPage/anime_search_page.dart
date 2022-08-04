@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 // Data Models
 import 'package:whats_that_anime/models/anime_info.dart';
@@ -61,10 +62,14 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
       setState(() {
         _animeInfoList = results;
       });
-    } catch (e) {
-      await EasyLoading.showError('Something went wrong');
-      if (!mounted) return;
+    } on Exception catch (e) {
       Navigator.pop(context);
+      MotionToast.error(
+        description: Text(
+          e.toString().replaceFirst('Exception: ', ''),
+          style: const TextStyle(color: Colors.black),
+        ),
+      ).show(context);
     } finally {
       EasyLoading.dismiss();
     }
