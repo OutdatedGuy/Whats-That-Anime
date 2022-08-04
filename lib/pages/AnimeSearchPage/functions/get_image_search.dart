@@ -6,7 +6,10 @@ import 'dart:convert';
 import 'package:whats_that_anime/models/anime_info.dart';
 import 'package:whats_that_anime/models/user_preferences.dart';
 
-Future<List<AnimeInfo>> getImageSearch({required String imageURL}) async {
+Future<List<AnimeInfo>> getImageSearch({
+  required String imageURL,
+  int retryNum = 0,
+}) async {
   Uri searchUri = Uri(
     scheme: 'https',
     host: 'api.trace.moe',
@@ -23,18 +26,16 @@ Future<List<AnimeInfo>> getImageSearch({required String imageURL}) async {
   final jsonResponse = json.decode(response.body);
 
   String error = jsonResponse['error'] as String;
-  if (response.statusCode == 402 || error.isNotEmpty) {
+  if (error == 'Concurrency limit exceeded' && retryNum < 2) {
     await Future.delayed(const Duration(seconds: 5));
-    return getImageSearch(imageURL: imageURL);
+    return getImageSearch(imageURL: imageURL, retryNum: retryNum + 1);
   }
-  if (response.statusCode != 200) return [];
+  if (response.statusCode != 200) throw Exception(error);
 
   bool childFilterEnabled = UserPreferences().childFilterEnabled;
   List<dynamic> result = (jsonResponse['result'] as List<dynamic>)
       .where((e) => !childFilterEnabled || !(e['anilist']['isAdult'] as bool))
       .toList();
-
-  if (result.isEmpty) return [];
 
   return result.map((e) => AnimeInfo.fromAPIJson(e)).toList();
 }
