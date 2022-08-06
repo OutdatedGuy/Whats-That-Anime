@@ -1,5 +1,6 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 
 // Dart Packages
@@ -7,6 +8,7 @@ import 'dart:typed_data';
 
 // Third Party Packages
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:pasteboard/pasteboard.dart';
 
 // Pages
@@ -78,6 +80,21 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  void _brokenImage() {
+    if (_imageData == null) return;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _imageData = null;
+      _mimeType = null;
+      setState(() {});
+      MotionToast.error(
+        description: const Text(
+          'Unable to process image',
+          style: TextStyle(color: Colors.black),
+        ),
+      ).show(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PasteListener(
@@ -108,7 +125,10 @@ class _HomePageState extends State<HomePage> {
                       ? Theme.of(context).colorScheme.primary.withOpacity(0.420)
                       : null,
                 ),
-                child: ImagePreview(imageData: _imageData),
+                child: ImagePreview(
+                  imageData: _imageData,
+                  onError: _brokenImage,
+                ),
               ),
             ),
             const SizedBox(height: 35),
