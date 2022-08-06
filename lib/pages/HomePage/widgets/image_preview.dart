@@ -11,9 +11,11 @@ class ImagePreview extends StatelessWidget {
   const ImagePreview({
     Key? key,
     required this.imageData,
+    this.onError,
   }) : super(key: key);
 
   final Uint8List? imageData;
+  final VoidCallback? onError;
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +45,14 @@ class ImagePreview extends StatelessWidget {
                   )
                 : Image.memory(
                     imageData!,
-                    errorBuilder: (p0, p1, p2) => const Icon(
-                      Icons.broken_image,
-                      color: Colors.red,
-                      size: 48,
-                    ),
+                    errorBuilder: (p0, p1, p2) {
+                      onError?.call();
+                      return const Icon(
+                        Icons.broken_image,
+                        color: Colors.red,
+                        size: 48,
+                      );
+                    },
                   ),
           ),
         ),
