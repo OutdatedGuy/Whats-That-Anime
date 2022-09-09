@@ -48,8 +48,8 @@ class MySearchButton extends StatelessWidget {
           : ElevatedButton(
               onPressed: _onPressed,
               style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).colorScheme.secondary,
-                onPrimary: Theme.of(context).colorScheme.onSecondary,
+                foregroundColor: Theme.of(context).colorScheme.onSecondary,
+                backgroundColor: Theme.of(context).colorScheme.secondary,
               ),
               child: const Text('Search this Image'),
             ),
