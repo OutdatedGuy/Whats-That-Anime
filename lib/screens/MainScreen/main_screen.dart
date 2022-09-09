@@ -16,7 +16,8 @@
 // Flutter Packages
 import 'package:flutter/material.dart';
 
-// Firebase Packages
+// Third Party Packages
+import 'package:responsive_navigation/responsive_navigation.dart';
 
 // Pages
 import 'package:whats_that_anime/pages/HomePage/home_page.dart';
@@ -40,45 +41,30 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
+    return ResponsiveNav(
+      items: [
+        NavItem(icon: const Icon(Icons.home), label: 'Home'),
+        NavItem(icon: const Icon(Icons.history), label: 'History'),
+        NavItem(icon: const Icon(Icons.settings), label: 'Settings'),
+      ],
+      onNavigationChanged: (int index) {
+        setState(() => _currentIndex = index);
+      },
+      navStyle: NavStyle(
+        verticalDivider: VerticalDivider(
+          color: Theme.of(context).colorScheme.secondary,
+          thickness: 1,
+          width: 1,
+        ),
+        indicatorColor: Colors.amber[800],
+      ),
+      child: IndexedStack(
         index: _currentIndex,
         children: <Widget>[
           const HomePage(),
           HistoryPage(key: Key('history: ${widget.uid}')),
           SettingsPage(key: Key('settings: ${widget.uid}')),
         ],
-      ),
-      bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(
-          hoverColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-        ),
-        child: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'History',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-          currentIndex: _currentIndex,
-          selectedItemColor: Colors.amber[800],
-          selectedIconTheme: const IconThemeData(size: 30),
-          landscapeLayout: BottomNavigationBarLandscapeLayout.linear,
-          onTap: (int index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-        ),
       ),
     );
   }

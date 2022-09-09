@@ -99,6 +99,9 @@ dependencies:
   # To get image from the clipboard
   pasteboard: ^0.2.0
 
+  # For better UI on desktop
+  responsive_navigation: ^1.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
