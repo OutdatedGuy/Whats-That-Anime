@@ -47,21 +47,19 @@ This package currently is only tested on android, ios, macos and the web platfor
 <details>
   <summary>✅ android</summary>
 
-- [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm32-release.apk)
-- [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm64-release.apk)
-- [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-x86_64-release.apk)
+- [android.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/Whats.That.Anime.apk)
 </details>
 
 <details>
   <summary>✅ ios</summary>
 
-- [ios.ipa](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/ios.ipa)
+- [ios.ipa](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/Whats.That.Anime.ipa)
 </details>
 
 <details>
   <summary>✅ macos</summary>
 
-- [macos.dmg](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/macos.dmg)
+- [macos.dmg](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/WTA.Installer.dmg)
 </details>
 
 <details>
