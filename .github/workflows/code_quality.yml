@@ -23,7 +23,7 @@ jobs:
 
       # Check for any formatting issues in the code.
       - name: Verify formatting
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
 
   analyze:
     name: Check code analysis
@@ -47,4 +47,4 @@ jobs:
 
       # Statically analyze the Dart code for any errors.
       - name: Analyze project source
-        run: flutter analyze .
+        run: dart analyze .
