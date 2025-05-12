@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:whats_that_anime/models/user_preferences.dart';
 
 class AutoPlayTile extends StatefulWidget {
-  const AutoPlayTile({
-    super.key,
-  });
+  const AutoPlayTile({super.key});
 
   @override
   State<AutoPlayTile> createState() => _AutoPlayTileState();

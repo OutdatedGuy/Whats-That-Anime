@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:whats_that_anime/models/user_preferences.dart';
 
 class LoopTile extends StatefulWidget {
-  const LoopTile({
-    super.key,
-  });
+  const LoopTile({super.key});
 
   @override
   State<LoopTile> createState() => _LoopTileState();

@@ -27,9 +27,9 @@ class AnimeSearchPage extends StatefulWidget {
     this.alreadySearched = false,
     this.recordRef,
   }) : assert(
-          !alreadySearched || recordRef != null,
-          'recordRef must not be null if alreadySearched is true',
-        );
+         !alreadySearched || recordRef != null,
+         'recordRef must not be null if alreadySearched is true',
+       );
 
   final String imageURL;
   final bool alreadySearched;
@@ -109,52 +109,44 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
   @override
   Widget build(BuildContext context) {
     TextStyle? text = Theme.of(context).textTheme.headlineMedium?.copyWith(
-          color: Theme.of(context).textTheme.bodyLarge?.color,
-        );
+      color: Theme.of(context).textTheme.bodyLarge?.color,
+    );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Anime Search'),
-      ),
-      body: _animeInfoList == null
-          ? null
-          : _animeInfoList!.isEmpty
-              ? const Center(
-                  child: Text('No results found.'),
-                )
+      appBar: AppBar(title: const Text('Anime Search')),
+      body:
+          _animeInfoList == null
+              ? null
+              : _animeInfoList!.isEmpty
+              ? const Center(child: Text('No results found.'))
               : ListView(
-                  padding: const EdgeInsets.all(8.0),
-                  children: [
-                    Align(
-                      child: Text('Top Result', style: text),
-                    ),
-                    const SizedBox(height: 5),
-                    Align(
-                      child: Hero(
-                        tag: widget.recordRef?.parent.parent ?? widget.imageURL,
-                        child: TopResult(
-                          key: ValueKey(_animeInfoList!.first),
-                          anime: _animeInfoList!.first,
-                        ),
+                padding: const EdgeInsets.all(8.0),
+                children: [
+                  Align(child: Text('Top Result', style: text)),
+                  const SizedBox(height: 5),
+                  Align(
+                    child: Hero(
+                      tag: widget.recordRef?.parent.parent ?? widget.imageURL,
+                      child: TopResult(
+                        key: ValueKey(_animeInfoList!.first),
+                        anime: _animeInfoList!.first,
                       ),
                     ),
-                    const SizedBox(height: 20),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Other Results:',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
+                  ),
+                  const SizedBox(height: 20),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Other Results:',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(height: 10),
-                    for (final animeInfo in _animeInfoList!.skip(1))
-                      ResultTile(
-                        key: ValueKey(animeInfo),
-                        animeInfo: animeInfo,
-                      ),
-                    SizedBox(height: MediaQuery.paddingOf(context).bottom),
-                  ],
-                ),
+                  ),
+                  const SizedBox(height: 10),
+                  for (final animeInfo in _animeInfoList!.skip(1))
+                    ResultTile(key: ValueKey(animeInfo), animeInfo: animeInfo),
+                  SizedBox(height: MediaQuery.paddingOf(context).bottom),
+                ],
+              ),
     );
   }
 }

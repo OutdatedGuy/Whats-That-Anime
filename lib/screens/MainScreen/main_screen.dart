@@ -10,10 +10,7 @@ import 'package:whats_that_anime/pages/HistoryPage/history_page.dart';
 import 'package:whats_that_anime/pages/SettingsPage/settings_page.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({
-    super.key,
-    this.uid,
-  });
+  const MainScreen({super.key, this.uid});
 
   final String? uid;
 

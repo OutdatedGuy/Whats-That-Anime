@@ -17,11 +17,10 @@ class OtherResult extends StatelessWidget {
     return SafeArea(
       child: Hero(
         tag: anime,
-        child: MediaQuery.of(context).size.width > 650
-            ? Center(
-                child: TopResult(anime: anime),
-              )
-            : TopResult(anime: anime),
+        child:
+            MediaQuery.of(context).size.width > 650
+                ? Center(child: TopResult(anime: anime))
+                : TopResult(anime: anime),
       ),
     );
   }

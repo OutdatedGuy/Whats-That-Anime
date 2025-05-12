@@ -4,11 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
 
 class PasteListener extends StatefulWidget {
-  const PasteListener({
-    super.key,
-    required this.child,
-    required this.onPaste,
-  });
+  const PasteListener({super.key, required this.child, required this.onPaste});
 
   final Widget child;
   final VoidCallback onPaste;
@@ -32,17 +28,14 @@ class _PasteListenerState extends State<PasteListener> {
     return CallbackShortcuts(
       bindings: {
         SingleActivator(
-          LogicalKeyboardKey.keyV,
-          control: !isMacOS,
-          meta: isMacOS,
-          includeRepeats: false,
-        ): widget.onPaste,
+              LogicalKeyboardKey.keyV,
+              control: !isMacOS,
+              meta: isMacOS,
+              includeRepeats: false,
+            ):
+            widget.onPaste,
       },
-      child: Focus(
-        autofocus: true,
-        focusNode: _focusNode,
-        child: widget.child,
-      ),
+      child: Focus(autofocus: true, focusNode: _focusNode, child: widget.child),
     );
   }
 }

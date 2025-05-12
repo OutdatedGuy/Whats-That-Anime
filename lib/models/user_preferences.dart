@@ -10,9 +10,7 @@ import 'package:get_storage/get_storage.dart';
 
 class UserPreferences {
   GetStorage get _storage {
-    return GetStorage(
-      FirebaseAuth.instance.currentUser?.uid ?? 'GetStorage',
-    );
+    return GetStorage(FirebaseAuth.instance.currentUser?.uid ?? 'GetStorage');
   }
 
   ThemeMode get theme {

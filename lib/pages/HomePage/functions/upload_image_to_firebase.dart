@@ -52,7 +52,8 @@ Future<MyResult> uploadImageToFirebase(XFile file) async {
 
         EasyLoading.showProgress(
           progress,
-          status: 'Uploading Image...\n'
+          status:
+              'Uploading Image...\n'
               '${(progress * 100).toStringAsFixed(0)}% Completed',
         );
       }

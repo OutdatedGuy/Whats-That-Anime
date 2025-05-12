@@ -65,26 +65,20 @@ Future<void> main() async {
   }
 
   // Awaiting all asynchronous tasks simultaneously
-  await Future.wait(
-    <Future<dynamic>>[
-      // Initialize Firebase app
-      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+  await Future.wait([
+    // Initialize Firebase app
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
 
-      // Setting orientation to portrait only
-      SystemChrome.setPreferredOrientations(
-        <DeviceOrientation>[
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-        ],
-      ),
+    // Setting orientation to portrait only
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]),
 
-      // Setting system UI mode to edge-to-edge
-      SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
-    ],
-  );
-  await GetStorage.init(
-    FirebaseAuth.instance.currentUser?.uid ?? 'GetStorage',
-  );
+    // Setting system UI mode to edge-to-edge
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
+  ]);
+  await GetStorage.init(FirebaseAuth.instance.currentUser?.uid ?? 'GetStorage');
 
   runApp(const MyApp());
 }
@@ -105,28 +99,26 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _userSubscription = FirebaseAuth.instance.userChanges().listen(
-      (User? user) async {
-        _disposeListener?.call();
+    _userSubscription = FirebaseAuth.instance.userChanges().listen((
+      User? user,
+    ) async {
+      _disposeListener?.call();
 
-        await GetStorage.init(user?.uid ?? 'GetStorage');
-        _disposeListener = GetStorage(
-          user?.uid ?? 'GetStorage',
-        ).listenKey('theme', (value) => setState(() {}));
+      await GetStorage.init(user?.uid ?? 'GetStorage');
+      _disposeListener = GetStorage(
+        user?.uid ?? 'GetStorage',
+      ).listenKey('theme', (value) => setState(() {}));
 
-        setState(() {});
-      },
-    );
+      setState(() {});
+    });
 
-    _connectionSub = InternetConnection().onStatusChange.listen(
-      (status) {
-        _isConnected = status == InternetStatus.connected;
+    _connectionSub = InternetConnection().onStatusChange.listen((status) {
+      _isConnected = status == InternetStatus.connected;
 
-        _isConnected && FirebaseAuth.instance.currentUser?.uid == null
-            ? FirebaseAuth.instance.signInAnonymously()
-            : setState(() {});
-      },
-    );
+      _isConnected && FirebaseAuth.instance.currentUser?.uid == null
+          ? FirebaseAuth.instance.signInAnonymously()
+          : setState(() {});
+    });
 
     Timer(const Duration(milliseconds: 690), FlutterNativeSplash.remove);
   }
@@ -151,9 +143,7 @@ class _MyAppState extends State<MyApp> {
       home: IndexedStack(
         index: _isConnected ? 0 : 1,
         children: [
-          MainScreen(
-            uid: FirebaseAuth.instance.currentUser?.uid,
-          ),
+          MainScreen(uid: FirebaseAuth.instance.currentUser?.uid),
           const OfflinePage(),
         ],
       ),

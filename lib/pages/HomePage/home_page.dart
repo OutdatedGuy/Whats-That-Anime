@@ -109,7 +109,8 @@ class _HomePageState extends State<HomePage> {
             DropTarget(
               onDragDone: (data) async {
                 for (final file in data.files) {
-                  final isSupported = file.mimeType?.startsWith('image/') ??
+                  final isSupported =
+                      file.mimeType?.startsWith('image/') ??
                       _supportedMimeTypes.contains(file.path.split('.').last);
 
                   if (!isSupported) continue;
@@ -124,12 +125,12 @@ class _HomePageState extends State<HomePage> {
               onDragExited: (_) => setState(() => _isImageHovered = false),
               child: Container(
                 foregroundDecoration: BoxDecoration(
-                  color: _isImageHovered
-                      ? Theme.of(context)
-                          .colorScheme
-                          .primary
-                          .withValues(alpha: .420)
-                      : null,
+                  color:
+                      _isImageHovered
+                          ? Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: .420)
+                          : null,
                 ),
                 child: ImagePreview(
                   imageData: _imageData,

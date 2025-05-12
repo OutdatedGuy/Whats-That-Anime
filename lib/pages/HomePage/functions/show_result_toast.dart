@@ -14,10 +14,7 @@ void showResultToast({
   required BuildContext context,
   required MyResult result,
 }) {
-  Text title = Text(
-    result.code,
-    style: const TextStyle(color: Colors.black),
-  );
+  Text title = Text(result.code, style: const TextStyle(color: Colors.black));
   Text description = Text(
     result.message ?? 'Success',
     style: const TextStyle(color: Colors.black),

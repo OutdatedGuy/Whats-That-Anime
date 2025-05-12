@@ -8,9 +8,7 @@ import 'package:whats_that_anime/models/user_preferences.dart';
 import 'package:whats_that_anime/widgets/adaptive_action.dart';
 
 class ChildFilterTile extends StatefulWidget {
-  const ChildFilterTile({
-    super.key,
-  });
+  const ChildFilterTile({super.key});
 
   @override
   State<ChildFilterTile> createState() => _ChildFilterTileState();
@@ -27,7 +25,8 @@ class _ChildFilterTileState extends State<ChildFilterTile> {
         if (value) {
           UserPreferences().childFilterEnabled = value;
         } else {
-          bool confirm = await showAdaptiveDialog<bool>(
+          bool confirm =
+              await showAdaptiveDialog<bool>(
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog.adaptive(

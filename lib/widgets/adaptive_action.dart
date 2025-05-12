@@ -19,21 +19,23 @@ class AdaptiveAction extends StatelessWidget {
     final destructiveColor = Theme.of(context).colorScheme.error;
     return switch (Theme.of(context).platform) {
       TargetPlatform.iOS || TargetPlatform.macOS => CupertinoDialogAction(
-          onPressed: onPressed,
-          isDestructiveAction: isDestructive,
-          child: child,
-        ),
+        onPressed: onPressed,
+        isDestructiveAction: isDestructive,
+        child: child,
+      ),
       _ => TextButton(
-          onPressed: onPressed,
-          style: isDestructive
-              ? TextButton.styleFrom(
+        onPressed: onPressed,
+        style:
+            isDestructive
+                ? TextButton.styleFrom(
                   foregroundColor: destructiveColor,
-                  disabledForegroundColor:
-                      destructiveColor.withValues(alpha: 0.5),
+                  disabledForegroundColor: destructiveColor.withValues(
+                    alpha: 0.5,
+                  ),
                 )
-              : null,
-          child: child,
-        ),
+                : null,
+        child: child,
+      ),
     };
   }
 }

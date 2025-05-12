@@ -5,9 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:whats_that_anime/models/user_preferences.dart';
 
 class SearchHistoryTile extends StatefulWidget {
-  const SearchHistoryTile({
-    super.key,
-  });
+  const SearchHistoryTile({super.key});
 
   @override
   State<SearchHistoryTile> createState() => _SearchHistoryTileState();

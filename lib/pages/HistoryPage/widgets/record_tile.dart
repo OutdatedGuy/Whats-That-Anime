@@ -39,11 +39,13 @@ class RecordTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AnimeSearchPage(
-                imageURL: imageURL,
-                alreadySearched: true,
-                recordRef: recordRef.collection('contents').doc('result'),
-              ),
+              builder: (context) {
+                return AnimeSearchPage(
+                  imageURL: imageURL,
+                  alreadySearched: true,
+                  recordRef: recordRef.collection('contents').doc('result'),
+                );
+              },
             ),
           );
         },
@@ -64,16 +66,20 @@ class RecordTile extends StatelessWidget {
                     imageUrl: imageURL,
                     fadeOutDuration: const Duration(milliseconds: 300),
                     fit: BoxFit.fitHeight,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    ),
-                    errorWidget: (context, url, error) => const Center(
-                      child: Icon(
-                        Icons.broken_image,
-                        color: Colors.red,
-                        size: 36,
-                      ),
-                    ),
+                    placeholder: (context, url) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return const Center(
+                        child: Icon(
+                          Icons.broken_image,
+                          color: Colors.red,
+                          size: 36,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -91,10 +97,8 @@ class RecordTile extends StatelessWidget {
                       children: [
                         Text(
                           'Top Result:',
-                          style:
-                              Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 12),
                         Text(

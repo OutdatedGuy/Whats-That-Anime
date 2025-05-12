@@ -24,9 +24,7 @@ Future<List<AnimeInfo>> getImageSearch({
   );
   final response = await http.get(
     searchUri,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: {'Content-Type': 'application/json'},
   );
   final jsonResponse = json.decode(response.body);
 
@@ -38,9 +36,12 @@ Future<List<AnimeInfo>> getImageSearch({
   if (response.statusCode != 200) throw Exception(error);
 
   bool childFilterEnabled = UserPreferences().childFilterEnabled;
-  List<dynamic> result = (jsonResponse['result'] as List<dynamic>)
-      .where((e) => !childFilterEnabled || !(e['anilist']['isAdult'] as bool))
-      .toList();
+  List<dynamic> result =
+      (jsonResponse['result'] as List<dynamic>)
+          .where(
+            (e) => !childFilterEnabled || !(e['anilist']['isAdult'] as bool),
+          )
+          .toList();
 
   return result.map((e) => AnimeInfo.fromAPIJson(e)).toList();
 }

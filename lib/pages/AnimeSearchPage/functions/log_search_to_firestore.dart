@@ -19,16 +19,17 @@ void logSearchToFirestore({
       .doc(userId)
       .collection('animeSearches')
       .add({
-    'topResult': topResult,
-    'imageURL': imageURL,
-    'uid': userId,
-    'timestamp': FieldValue.serverTimestamp(),
-  }).then((value) {
-    value.collection('contents').doc('result').set({
-      'result': result.map((e) => e.toMap()).toList(),
-      'imageURL': imageURL,
-      'uid': userId,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
-  });
+        'topResult': topResult,
+        'imageURL': imageURL,
+        'uid': userId,
+        'timestamp': FieldValue.serverTimestamp(),
+      })
+      .then((value) {
+        value.collection('contents').doc('result').set({
+          'result': result.map((e) => e.toMap()).toList(),
+          'imageURL': imageURL,
+          'uid': userId,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      });
 }

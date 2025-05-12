@@ -34,37 +34,38 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Search History')),
-      body: uid == null
-          ? const Center(
-              child: CircularProgressIndicator.adaptive(strokeWidth: 2),
-            )
-          : FirestorePagination(
-              query: _query,
-              isLive: true,
-              itemBuilder: (context, snapshots, i) {
-                final data = snapshots[i].data() as Map?;
-                if (data == null) return Container();
+      body:
+          uid == null
+              ? const Center(
+                child: CircularProgressIndicator.adaptive(strokeWidth: 2),
+              )
+              : FirestorePagination(
+                query: _query,
+                isLive: true,
+                itemBuilder: (context, snapshots, i) {
+                  final data = snapshots[i].data() as Map?;
+                  if (data == null) return Container();
 
-                final animeInfo = AnimeInfo.fromMap(
-                  data['topResult'] as Map<String, dynamic>,
-                );
+                  final animeInfo = AnimeInfo.fromMap(
+                    data['topResult'] as Map<String, dynamic>,
+                  );
 
-                return Container(
-                  constraints: const BoxConstraints(maxWidth: 400),
-                  margin: const EdgeInsets.all(8.0),
-                  child: Hero(
-                    tag: snapshots[i].reference,
-                    child: RecordTile(
-                      anime: animeInfo,
-                      imageURL: data['imageURL'] as String,
-                      recordRef: snapshots[i].reference,
+                  return Container(
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    margin: const EdgeInsets.all(8.0),
+                    child: Hero(
+                      tag: snapshots[i].reference,
+                      child: RecordTile(
+                        anime: animeInfo,
+                        imageURL: data['imageURL'] as String,
+                        recordRef: snapshots[i].reference,
+                      ),
                     ),
-                  ),
-                );
-              },
-              viewType: ViewType.wrap,
-              onEmpty: const Center(child: Text('No records found')),
-            ),
+                  );
+                },
+                viewType: ViewType.wrap,
+                onEmpty: const Center(child: Text('No records found')),
+              ),
     );
   }
 }

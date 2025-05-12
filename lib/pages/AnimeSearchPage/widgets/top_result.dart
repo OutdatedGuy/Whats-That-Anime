@@ -30,8 +30,9 @@ class _TopResultState extends State<TopResult> {
   void initState() {
     super.initState();
     _videoPlayerController = VideoPlayerController.networkUrl(
-      Uri.parse(widget.anime.videoURL),
-    )..initialize().then((_) {
+        Uri.parse(widget.anime.videoURL),
+      )
+      ..initialize().then((_) {
         final userPrefs = UserPreferences();
 
         setState(() {
@@ -75,11 +76,12 @@ class _TopResultState extends State<TopResult> {
                 color: Colors.black,
                 child: AspectRatio(
                   aspectRatio: 16 / 9,
-                  child: _chewieController == null
-                      ? const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        )
-                      : Chewie(controller: _chewieController!),
+                  child:
+                      _chewieController == null
+                          ? const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          )
+                          : Chewie(controller: _chewieController!),
                 ),
               ),
             ),
