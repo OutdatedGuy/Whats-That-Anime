@@ -43,25 +43,25 @@ An **Image Search** App to find **Anime** Details related to the Image. Created 
 ## Platform Support
 
 This package currently is only tested on android and the web platform.
+
 <details>
   <summary>✅ android</summary>
 
-  - [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm32-release.apk)
-  - [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm64-release.apk)
-  - [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-x86_64-release.apk)
+- [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm32-release.apk)
+- [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm64-release.apk)
+- [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-x86_64-release.apk)
 </details>
 
 <details>
   <summary>✅ <a href="https://whats-that-anime.outdatedguy.rocks/">web</a></summary>
 
-  - [whats-that-anime.outdatedguy.rocks](https://whats-that-anime.outdatedguy.rocks/)
-</details> 
+- [whats-that-anime.outdatedguy.rocks](https://whats-that-anime.outdatedguy.rocks/)
+</details>
 
 🔳 ios  
 🔳 windows  
 🔳 macos  
-🔳 linux  
-
+🔳 linux
 
 ## Whats Next?
 

@@ -1,28 +1,13 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// Dart Packages
+import 'dart:typed_data';
 
 // Flutter Packages
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:image_picker/image_picker.dart';
-
-// Dart Packages
-import 'dart:typed_data';
 
 // Third Party Packages
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:pasteboard/pasteboard.dart';
 
@@ -42,7 +27,7 @@ import 'functions/upload_image_to_firebase.dart';
 import 'functions/show_result_toast.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -67,7 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   void _uploadImage() async {
     if (_imageData == null) return;
-    MyResult result = await uploadImageToFirebase(
+    final result = await uploadImageToFirebase(
       XFile.fromData(_imageData!, mimeType: _mimeType ?? 'image/jpeg'),
     );
 
@@ -119,12 +104,15 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: <Widget>[
             // ! To maximize colum's width, do not remove
-            Row(),
+            const Row(),
             const SizedBox(height: 35),
             DropTarget(
               onDragDone: (data) async {
                 for (final file in data.files) {
-                  if (file.mimeType?.startsWith('image/') != true) continue;
+                  final isSupported = file.mimeType?.startsWith('image/') ??
+                      _supportedMimeTypes.contains(file.path.split('.').last);
+
+                  if (!isSupported) continue;
 
                   _imageData = await file.readAsBytes();
                   _mimeType = file.mimeType;
@@ -137,7 +125,10 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 foregroundDecoration: BoxDecoration(
                   color: _isImageHovered
-                      ? Theme.of(context).colorScheme.primary.withOpacity(0.420)
+                      ? Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withValues(alpha: .420)
                       : null,
                 ),
                 child: ImagePreview(
@@ -160,3 +151,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+final List<String> _supportedMimeTypes = ['png', 'jpeg', 'jpg'];

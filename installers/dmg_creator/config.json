@@ -1,0 +1,13 @@
+{
+  "title": "WTA Installer",
+  "icon": "dmg_icon.icns",
+  "background": "dmg-background.png",
+  "window": {
+    "size": { "width": 720, "height": 326 },
+    "position": { "x": 580, "y": 360 }
+  },
+  "contents": [
+    { "x": 150, "y": 163, "type": "file", "path": "../../build/macos/Build/Products/Release/Whats That Anime.app" },
+    { "x": 570, "y": 163, "type": "link", "path": "/Applications" }
+  ]
+}

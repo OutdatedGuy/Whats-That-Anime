@@ -1,18 +1,3 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 // Flutter Packages
 import 'package:flutter/material.dart';
 
@@ -37,15 +22,14 @@ import 'functions/log_search_to_firestore.dart';
 
 class AnimeSearchPage extends StatefulWidget {
   const AnimeSearchPage({
-    Key? key,
+    super.key,
     required this.imageURL,
     this.alreadySearched = false,
     this.recordRef,
-  })  : assert(
+  }) : assert(
           !alreadySearched || recordRef != null,
           'recordRef must not be null if alreadySearched is true',
-        ),
-        super(key: key);
+        );
 
   final String imageURL;
   final bool alreadySearched;
@@ -117,60 +101,60 @@ class _AnimeSearchPageState extends State<AnimeSearchPage> {
   }
 
   @override
+  void dispose() {
+    EasyLoading.dismiss();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextStyle? text = Theme.of(context).textTheme.headline4?.copyWith(
-          color: Theme.of(context).textTheme.bodyText1?.color,
+    TextStyle? text = Theme.of(context).textTheme.headlineMedium?.copyWith(
+          color: Theme.of(context).textTheme.bodyLarge?.color,
         );
 
-    return WillPopScope(
-      onWillPop: () async {
-        await EasyLoading.dismiss();
-        return true;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Anime Search'),
-        ),
-        body: _animeInfoList == null
-            ? null
-            : _animeInfoList!.isEmpty
-                ? const Center(
-                    child: Text('No results found.'),
-                  )
-                : ListView(
-                    padding: const EdgeInsets.all(8.0),
-                    children: [
-                      Align(
-                        child: Text('Top Result', style: text),
-                      ),
-                      const SizedBox(height: 5),
-                      Align(
-                        child: Hero(
-                          tag: widget.recordRef?.parent.parent ??
-                              widget.imageURL,
-                          child: TopResult(
-                            key: ValueKey(_animeInfoList!.first),
-                            anime: _animeInfoList!.first,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Other Results:',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      for (final animeInfo in _animeInfoList!.skip(1))
-                        ResultTile(
-                          key: ValueKey(animeInfo),
-                          animeInfo: animeInfo,
-                        ),
-                    ],
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Anime Search'),
       ),
+      body: _animeInfoList == null
+          ? null
+          : _animeInfoList!.isEmpty
+              ? const Center(
+                  child: Text('No results found.'),
+                )
+              : ListView(
+                  padding: const EdgeInsets.all(8.0),
+                  children: [
+                    Align(
+                      child: Text('Top Result', style: text),
+                    ),
+                    const SizedBox(height: 5),
+                    Align(
+                      child: Hero(
+                        tag: widget.recordRef?.parent.parent ?? widget.imageURL,
+                        child: TopResult(
+                          key: ValueKey(_animeInfoList!.first),
+                          anime: _animeInfoList!.first,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Other Results:',
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    for (final animeInfo in _animeInfoList!.skip(1))
+                      ResultTile(
+                        key: ValueKey(animeInfo),
+                        animeInfo: animeInfo,
+                      ),
+                    SizedBox(height: MediaQuery.paddingOf(context).bottom),
+                  ],
+                ),
     );
   }
 }

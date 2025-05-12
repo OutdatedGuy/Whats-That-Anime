@@ -1,20 +1,4 @@
-# Copyright (C) 2022 OutdatedGuy
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Affero General Public License as
-# published by the Free Software Foundation, either version 3 of the
-# License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Affero General Public License for more details.
-#
-# You should have received a copy of the GNU Affero General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-# For App Launcher icon
-# flutter pub run icons_launcher:create
+# dart run icons_launcher:create
 icons_launcher:
   image_path: "assets/icons/launcher_icon_border.png"
 
@@ -25,14 +9,17 @@ icons_launcher:
       adaptive_foreground_image: "assets/icons/adaptive_logo.png"
 
     ios:
-      enable: false
+      enable: true
+      image_path: "assets/icons/app_logo.png"
 
     web:
       enable: true
+      image_path: "assets/icons/maskable_icon.png"
       favicon_path: "assets/icons/favicon.png"
 
     macos:
-      enable: false
+      enable: true
+      image_path: "assets/icons/macOS_logo.png"
 
     windows:
       enable: false
