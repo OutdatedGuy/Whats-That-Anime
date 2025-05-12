@@ -7,9 +7,9 @@ flutterfire configure --project="what-s-that-anime" -a rocks.outdatedguy.whatsth
 
 flutter build appbundle --release &&
 
-rm -f "installers/android/appbundle/What's That Anime.aab" &&
+rm -f "installers/android/appbundle/Whats That Anime.aab" &&
 mkdir -p "installers/android/appbundle/" &&
 
-cp -R "build/app/outputs/bundle/release/app-release.aab" "installers/android/appbundle/What's That Anime.aab" &&
+cp -R "build/app/outputs/bundle/release/app-release.aab" "installers/android/appbundle/Whats That Anime.aab" &&
 
 open "installers/android/appbundle/";

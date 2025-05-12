@@ -7,9 +7,9 @@ flutterfire configure --project="what-s-that-anime" -a rocks.outdatedguy.whatsth
 
 flutter build apk --release &&
 
-rm -f "installers/android/apk/What's That Anime.apk" &&
+rm -f "installers/android/apk/Whats That Anime.apk" &&
 mkdir -p "installers/android/apk/" &&
 
-cp -R "build/app/outputs/flutter-apk/app-release.apk" "installers/android/apk/What's That Anime.apk" &&
+cp -R "build/app/outputs/flutter-apk/app-release.apk" "installers/android/apk/Whats That Anime.apk" &&
 
 open "installers/android/apk/";

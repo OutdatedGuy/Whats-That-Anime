@@ -12,9 +12,9 @@ flutterfire configure --project="what-s-that-anime" -i rocks.outdatedguy.whatsth
 
 flutter build ipa --release &&
 
-rm -f "installers/ios/What's That Anime.ipa" &&
+rm -f "installers/ios/Whats That Anime.ipa" &&
 mkdir -p "installers/ios/" &&
 
-cp -R "build/ios/ipa/WhatsThatAnime.ipa" "installers/ios/What's That Anime.ipa" &&
+cp -R "build/ios/ipa/WhatsThatAnime.ipa" "installers/ios/Whats That Anime.ipa" &&
 
 open "installers/ios/";
