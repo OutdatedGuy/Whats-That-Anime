@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=What's That Anime
+Name="What's That Anime"
 Comment=An Image Search App to find Anime Details related to the Image by using trace.moe API
 Exec=app_icon
 Icon=app_icon.png
