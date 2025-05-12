@@ -1,18 +1,3 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 // Flutter Packages
 import 'package:flutter/material.dart';
 
@@ -33,11 +18,11 @@ import 'package:whats_that_anime/functions/get_formatted_time.dart';
 
 class RecordTile extends StatelessWidget {
   const RecordTile({
-    Key? key,
+    super.key,
     required this.imageURL,
     required this.anime,
     required this.recordRef,
-  }) : super(key: key);
+  });
 
   final String imageURL;
   final AnimeInfo anime;
@@ -54,11 +39,13 @@ class RecordTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => AnimeSearchPage(
-                imageURL: imageURL,
-                alreadySearched: true,
-                recordRef: recordRef.collection('contents').doc('result'),
-              ),
+              builder: (context) {
+                return AnimeSearchPage(
+                  imageURL: imageURL,
+                  alreadySearched: true,
+                  recordRef: recordRef.collection('contents').doc('result'),
+                );
+              },
             ),
           );
         },
@@ -79,16 +66,20 @@ class RecordTile extends StatelessWidget {
                     imageUrl: imageURL,
                     fadeOutDuration: const Duration(milliseconds: 300),
                     fit: BoxFit.fitHeight,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    errorWidget: (context, url, error) => const Center(
-                      child: Icon(
-                        Icons.broken_image,
-                        color: Colors.red,
-                        size: 36,
-                      ),
-                    ),
+                    placeholder: (context, url) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    },
+                    errorWidget: (context, url, error) {
+                      return const Center(
+                        child: Icon(
+                          Icons.broken_image,
+                          color: Colors.red,
+                          size: 36,
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -106,10 +97,8 @@ class RecordTile extends StatelessWidget {
                       children: [
                         Text(
                           'Top Result:',
-                          style:
-                              Theme.of(context).textTheme.headline6?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(height: 12),
                         Text(
@@ -148,7 +137,7 @@ class RecordTile extends StatelessWidget {
                         tooltip: 'Delete Record',
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

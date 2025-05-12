@@ -1,19 +1,4 @@
 <!DOCTYPE html>
-<!-- Copyright (C) 2022 OutdatedGuy
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
-
 <html lang="en">
   <head>
     <!--
@@ -38,48 +23,126 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
       content="An Image Search App to find Anime Details related to the Image by using trace.moe API"
     />
 
-    <!-- Social media link preview -->
-    <meta property="og:title" content="What's That Anime" />
-    <meta
-      property="og:description"
-      content="An Image Search App to find Anime Details related to the Image by using trace.moe API"
-    />
-    <meta property="og:image" content="https://i.imgur.com/2kQh4Yn.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="600" />
+    <!-- Facebook Meta Tags -->
     <meta
       property="og:url"
       content="https://whats-that-anime.outdatedguy.rocks/"
     />
     <meta property="og:type" content="website" />
-    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="og:title" content="What's That Anime" />
+    <meta
+      property="og:description"
+      content="An Image Search App to find Anime Details related to the Image by using trace.moe API"
+    />
+    <meta
+      property="og:image"
+      content="https://i.postimg.cc/jd1CDYnT/image.png"
+    />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:domain"
+      content="whats-that-anime.outdatedguy.rocks"
+    />
+    <meta
+      property="twitter:url"
+      content="https://whats-that-anime.outdatedguy.rocks/"
+    />
+    <meta name="twitter:title" content="What's That Anime" />
+    <meta
+      name="twitter:description"
+      content="An Image Search App to find Anime Details related to the Image by using trace.moe API"
+    />
+    <meta
+      name="twitter:image"
+      content="https://i.postimg.cc/jd1CDYnT/image.png"
+    />
 
     <!-- iOS meta tags & icons -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="What's That Anime" />
     <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
 
     <title>What's That Anime</title>
     <link rel="manifest" href="manifest.json" />
 
-    <script>
-      // The value below is injected by flutter build, do not touch.
-      var serviceWorkerVersion = null;
-    </script>
-    <!-- This script adds the flutter initialization JS code -->
-    <script src="flutter.js" defer></script>
-    <script src="splash/splash.js"></script>
     <meta
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       name="viewport"
     />
-    <link rel="stylesheet" type="text/css" href="splash/style.css" />
-    <script type="text/javascript">
-      window.flutterWebRenderer = "html";
+
+    <style id="splash-screen-style">
+      html {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100%;
+        background-color: #673ab7;
+        background-size: 100% 100%;
+      }
+
+      .center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .contain {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .stretch {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .cover {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .bottom {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        -ms-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+      }
+
+      .bottomLeft {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+
+      .bottomRight {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+    </style>
+    <script id="splash-screen-script">
+      function removeSplashFromWeb() {
+        document.getElementById("splash")?.remove();
+        document.getElementById("splash-branding")?.remove();
+        document.body.style.background = "transparent";
+      }
     </script>
   </head>
   <body>
@@ -135,22 +198,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         alt=""
       />
     </picture>
-    <script>
-      window.addEventListener("load", function (ev) {
-        // Download main.dart.js
-        _flutter.loader
-          .loadEntrypoint({
-            serviceWorker: {
-              serviceWorkerVersion: serviceWorkerVersion,
-            },
-          })
-          .then(function (engineInitializer) {
-            return engineInitializer.initializeEngine();
-          })
-          .then(function (appRunner) {
-            return appRunner.runApp();
-          });
-      });
-    </script>
+
+    <script src="flutter_bootstrap.js" async=""></script>
   </body>
 </html>

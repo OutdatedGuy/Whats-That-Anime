@@ -1,0 +1,32 @@
+# dart run package_rename
+package_rename_config:
+  android:
+    app_name: "What's That Anime"
+    package_name: rocks.outdatedguy.whatsthatanime
+    override_old_package: rocks.outdatedguy.whats_that_anime
+
+  ios:
+    app_name: "What's That Anime"
+    bundle_name: WhatsThatAnime
+    package_name: rocks.outdatedguy.whatsthatanime
+
+  linux:
+    app_name: "What's That Anime"
+    package_name: rocks.outdatedguy.whatsthatanime
+    exe_name: whats-that-anime-linux
+
+  macos:
+    app_name: "What's That Anime"
+    package_name: rocks.outdatedguy.whatsthatanime
+    copyright_notice: Copyright © 2022 OutdatedGuy. All rights reserved.
+
+  web:
+    app_name: "What's That Anime"
+    short_app_name: "What's That Anime"
+    description: "An Image Search App to find Anime Details related to the Image by using trace.moe API"
+
+  windows:
+    app_name: "What's That Anime"
+    organization: OutdatedGuy
+    copyright_notice: Copyright © 2022 OutdatedGuy. All rights reserved.
+    exe_name: whats-that-anime-win

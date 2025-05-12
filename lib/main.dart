@@ -1,24 +1,12 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-// Flutter Packages
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 // Dart Packages
 import 'dart:async';
+import 'dart:io';
+
+// Flutter Packages
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 // Firebase Packages
 import 'package:firebase_core/firebase_core.dart';
@@ -30,6 +18,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:window_size/window_size.dart';
 
 // Screens
 import 'screens/MainScreen/main_screen.dart';
@@ -42,36 +31,60 @@ import 'package:whats_that_anime/models/user_preferences.dart';
 
 // Themes
 import 'themes/app_theme.dart';
-import 'themes/system_ui_theme.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  // Awaiting all asynchronous tasks simultaneously
-  await Future.wait(
-    <Future<dynamic>>[
-      // Initialize Firebase app
-      Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+  usePathUrlStrategy();
 
-      // Setting orientation to portrait only
-      SystemChrome.setPreferredOrientations(
-        <DeviceOrientation>[
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-        ],
-      ),
-    ],
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      systemStatusBarContrastEnforced: false,
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarContrastEnforced: false,
+    ),
   );
-  await GetStorage.init(
-    FirebaseAuth.instance.currentUser?.uid ?? 'GetStorage',
-  );
+
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    setWindowMinSize(const Size(400, 800));
+    // Open the app in the center of the screen
+    await getCurrentScreen().then((screen) {
+      setWindowFrame(
+        Rect.fromCenter(
+          center: Offset(
+            (screen?.visibleFrame.width ?? 1920) / 2,
+            (screen?.visibleFrame.height ?? 1080) / 2,
+          ),
+          width: 1080,
+          height: 800,
+        ),
+      );
+    });
+  }
+
+  // Awaiting all asynchronous tasks simultaneously
+  await Future.wait([
+    // Initialize Firebase app
+    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform),
+
+    // Setting orientation to portrait only
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]),
+
+    // Setting system UI mode to edge-to-edge
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge),
+  ]);
+  await GetStorage.init(FirebaseAuth.instance.currentUser?.uid ?? 'GetStorage');
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -79,35 +92,33 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late StreamSubscription<User?> _userSubscription;
-  late StreamSubscription<InternetConnectionStatus> connectionSub;
-  VoidCallback? disposeListener;
-  bool isConnected = true;
+  late StreamSubscription<InternetStatus> _connectionSub;
+  VoidCallback? _disposeListener;
+  bool _isConnected = true;
 
   @override
   void initState() {
     super.initState();
-    _userSubscription = FirebaseAuth.instance.userChanges().listen(
-      (User? user) async {
-        disposeListener?.call();
+    _userSubscription = FirebaseAuth.instance.userChanges().listen((
+      User? user,
+    ) async {
+      _disposeListener?.call();
 
-        await GetStorage.init(user?.uid ?? 'GetStorage');
-        disposeListener = GetStorage(
-          user?.uid ?? 'GetStorage',
-        ).listenKey('theme', (value) => setState(() {}));
+      await GetStorage.init(user?.uid ?? 'GetStorage');
+      _disposeListener = GetStorage(
+        user?.uid ?? 'GetStorage',
+      ).listenKey('theme', (value) => setState(() {}));
 
-        setState(() {});
-      },
-    );
+      setState(() {});
+    });
 
-    connectionSub = InternetConnectionCheckerPlus().onStatusChange.listen(
-      (status) {
-        isConnected = status == InternetConnectionStatus.connected;
+    _connectionSub = InternetConnection().onStatusChange.listen((status) {
+      _isConnected = status == InternetStatus.connected;
 
-        isConnected && FirebaseAuth.instance.currentUser?.uid == null
-            ? FirebaseAuth.instance.signInAnonymously()
-            : setState(() {});
-      },
-    );
+      _isConnected && FirebaseAuth.instance.currentUser?.uid == null
+          ? FirebaseAuth.instance.signInAnonymously()
+          : setState(() {});
+    });
 
     Timer(const Duration(milliseconds: 690), FlutterNativeSplash.remove);
   }
@@ -115,8 +126,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     _userSubscription.cancel();
-    connectionSub.cancel();
-    disposeListener?.call();
+    _connectionSub.cancel();
+    _disposeListener?.call();
     super.dispose();
   }
 
@@ -130,22 +141,13 @@ class _MyAppState extends State<MyApp> {
       darkTheme: appTheme(Brightness.dark),
       themeMode: themeMode,
       home: IndexedStack(
-        index: isConnected ? 0 : 1,
+        index: _isConnected ? 0 : 1,
         children: [
-          MainScreen(
-            uid: FirebaseAuth.instance.currentUser?.uid,
-          ),
+          MainScreen(uid: FirebaseAuth.instance.currentUser?.uid),
           const OfflinePage(),
         ],
       ),
-      builder: EasyLoading.init(
-        builder: (context, child) {
-          return AnnotatedRegion<SystemUiOverlayStyle>(
-            value: systemUITheme(context: context, themeMode: themeMode),
-            child: child ?? Container(),
-          );
-        },
-      ),
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -1,33 +1,14 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+// Dart Packages
+import 'dart:typed_data';
 
 // Flutter Packages
 import 'package:flutter/material.dart';
-
-// Dart Packages
-import 'dart:typed_data';
 
 // Third Party Packages
 import 'package:dotted_border/dotted_border.dart';
 
 class ImagePreview extends StatelessWidget {
-  const ImagePreview({
-    Key? key,
-    required this.imageData,
-    this.onError,
-  }) : super(key: key);
+  const ImagePreview({super.key, required this.imageData, this.onError});
 
   final Uint8List? imageData;
   final VoidCallback? onError;
@@ -47,28 +28,29 @@ class ImagePreview extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 16 / 9,
           child: Center(
-            child: imageData == null
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text('No Image Selected'),
-                      SizedBox(height: 10),
-                      Text('Drop or Paste an image here'),
-                      SizedBox(height: 10),
-                      Icon(Icons.file_download_outlined),
-                    ],
-                  )
-                : Image.memory(
-                    imageData!,
-                    errorBuilder: (p0, p1, p2) {
-                      onError?.call();
-                      return const Icon(
-                        Icons.broken_image,
-                        color: Colors.red,
-                        size: 48,
-                      );
-                    },
-                  ),
+            child:
+                imageData == null
+                    ? const Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('No Image Selected'),
+                        SizedBox(height: 10),
+                        Text('Drop or Paste an image here'),
+                        SizedBox(height: 10),
+                        Icon(Icons.file_download_outlined),
+                      ],
+                    )
+                    : Image.memory(
+                      imageData!,
+                      errorBuilder: (p0, p1, p2) {
+                        onError?.call();
+                        return const Icon(
+                          Icons.broken_image,
+                          color: Colors.red,
+                          size: 48,
+                        );
+                      },
+                    ),
           ),
         ),
       ),

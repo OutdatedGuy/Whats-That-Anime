@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -23,13 +23,13 @@ jobs:
 
       # Check for any formatting issues in the code.
       - name: Verify formatting
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
 
   analyze:
     name: Check code analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -47,4 +47,4 @@ jobs:
 
       # Statically analyze the Dart code for any errors.
       - name: Analyze project source
-        run: flutter analyze .
+        run: dart analyze .

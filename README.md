@@ -9,7 +9,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/downloads/OutdatedGuy/Whats-That-Anime/total?color=%23c315e6&label=Downloads)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwhats-that-anime.outdatedguy.rocks)](https://whats-that-anime.outdatedguy.rocks/)
 [![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/OutdatedGuy/Whats-That-Anime?color=red)](https://github.com/OutdatedGuy/Whats-That-Anime/pulls?q=is%3Apr+is%3Aclosed)
-![Platform support](https://img.shields.io/badge/platform-android%20%7C%20web-9cf)
+![Platform support](https://img.shields.io/badge/platform-android%20%7C%20ios%20%7C%20macos%20%7C%20web-9cf)
 
 ## Light Mode
 
@@ -42,30 +42,40 @@ An **Image Search** App to find **Anime** Details related to the Image. Created 
 
 ## Platform Support
 
-This package currently is only tested on android and the web platform.
+This package currently is only tested on android, ios, macos and the web platform.
+
 <details>
   <summary>✅ android</summary>
 
-  - [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm32-release.apk)
-  - [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm64-release.apk)
-  - [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-x86_64-release.apk)
+- [android-arm32.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm32-release.apk)
+- [android-arm64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-arm64-release.apk)
+- [android-x86_64.apk](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/android-x86_64-release.apk)
+</details>
+
+<details>
+  <summary>✅ ios</summary>
+
+- [ios.ipa](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/ios.ipa)
+</details>
+
+<details>
+  <summary>✅ macos</summary>
+
+- [macos.dmg](https://github.com/OutdatedGuy/Whats-That-Anime/releases/latest/download/macos.dmg)
 </details>
 
 <details>
   <summary>✅ <a href="https://whats-that-anime.outdatedguy.rocks/">web</a></summary>
 
-  - [whats-that-anime.outdatedguy.rocks](https://whats-that-anime.outdatedguy.rocks/)
-</details> 
+- [whats-that-anime.outdatedguy.rocks](https://whats-that-anime.outdatedguy.rocks/)
+</details>
 
-🔳 ios  
-🔳 windows  
-🔳 macos  
-🔳 linux  
-
+❌ windows  
+❌ linux
 
 ## Whats Next?
 
-- Add ios platform suppport (PRs welcome)
+- Add windows platform suppport (PRs welcome)
 
 ## Contributing
 
@@ -74,11 +84,11 @@ Contributions are welcomed, please refer to the [CONTRIBUTING.md](CONTRIBUTING.m
 ## How to Run
 
 1. Clone the repo
-   ```sh
+   ```bash
    git clone https://github.com/OutdatedGuy/Whats-That-Anime.git
    ```
 2. Install all the packages by typing
-   ```sh
+   ```bash
    flutter pub get
    ```
 3. Create a [Firebase project](https://console.firebase.google.com/)

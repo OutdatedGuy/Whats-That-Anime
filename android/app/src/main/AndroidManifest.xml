@@ -1,21 +1,8 @@
-<!-- Copyright (C) 2022 OutdatedGuy
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
-
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="rocks.outdatedguy.whatsthatanime">
-   <application
+    <application
         android:label="What's That Anime"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -23,6 +10,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
+            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -45,15 +33,33 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>. -->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-    </application>
-    
-    <uses-permission android:name="android.permission.INTERNET"/>
 
-    <!-- For URL launching/opening -->
+        <!-- Pasteboard Plugin -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+
         <!-- If your app opens https URLs -->
         <intent>
             <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
     </queries>

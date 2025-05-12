@@ -1,27 +1,10 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-// Flutter Packages
-import 'package:image_picker/image_picker.dart';
-
 // Firebase Packages
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-// Other Packages
+// Third Party Packages
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart' show XFile;
 
 // Data Models
 import 'package:whats_that_anime/models/my_result.dart';
@@ -64,11 +47,14 @@ Future<MyResult> uploadImageToFirebase(XFile file) async {
     );
     uploadTask.snapshotEvents.listen((TaskSnapshot event) async {
       if (event.state == TaskState.running) {
-        final double progress = event.bytesTransferred / event.totalBytes;
+        final progress = event.bytesTransferred / event.totalBytes;
+        if (progress case < 0.0 || > 1.0) return;
+
         EasyLoading.showProgress(
           progress,
           status:
-              'Uploading Image...\n${(progress * 100).toStringAsFixed(0)}% Completed',
+              'Uploading Image...\n'
+              '${(progress * 100).toStringAsFixed(0)}% Completed',
         );
       }
     });

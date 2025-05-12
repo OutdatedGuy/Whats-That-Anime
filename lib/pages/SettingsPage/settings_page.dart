@@ -1,18 +1,3 @@
-// Copyright (C) 2022 OutdatedGuy
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU Affero General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU Affero General Public License for more details.
-//
-// You should have received a copy of the GNU Affero General Public License
-// along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 // Flutter Packages
 import 'package:flutter/material.dart';
 
@@ -32,12 +17,13 @@ import 'widgets/switch_options.dart/search_history_tile.dart';
 import 'widgets/switch_options.dart/auto_play_tile.dart';
 import 'widgets/switch_options.dart/loop_tile.dart';
 import 'widgets/switch_options.dart/child_filter_lite.dart';
+import 'package:whats_that_anime/widgets/adaptive_action.dart';
 
 // Functions
 import 'functions/style_loading.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
@@ -47,9 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      appBar: AppBar(title: const Text('Settings')),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -65,26 +49,26 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               leading: const Icon(Icons.delete, color: Colors.red),
               onTap: () {
-                showDialog<bool>(
+                showAdaptiveDialog<bool>(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
+                    return AlertDialog.adaptive(
                       title: const Text('Clear Search History'),
                       content: const Text(
                         'This will clear your search history. Are you sure?\n\nThis action cannot be undone.',
                       ),
                       actions: <Widget>[
-                        TextButton(
-                          child: const Text('YES'),
+                        AdaptiveAction(
                           onPressed: () {
                             Navigator.of(context).pop(true);
                           },
+                          child: const Text('YES'),
                         ),
-                        TextButton(
-                          child: const Text('NO'),
+                        AdaptiveAction(
                           onPressed: () {
                             Navigator.of(context).pop(false);
                           },
+                          child: const Text('NO'),
                         ),
                       ],
                     );
