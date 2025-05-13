@@ -60,6 +60,7 @@ scripts/
 installers/**/*.aab
 installers/**/*.apk
 installers/**/*.ipa
+installers/**/*.app
 installers/**/*.dmg
 installers/**/*.msix
 installers/web/
