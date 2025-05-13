@@ -2,6 +2,8 @@
   "title": "WTA Installer",
   "icon": "dmg_icon.icns",
   "background": "dmg-background.png",
+  "filesystem": "APFS",
+  "format": "ULFO",
   "window": {
     "size": { "width": 720, "height": 326 },
     "position": { "x": 580, "y": 360 }
